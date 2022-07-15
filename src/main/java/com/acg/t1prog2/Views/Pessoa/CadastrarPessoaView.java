@@ -12,6 +12,7 @@ import com.acg.t1prog2.Models.Aluno;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
 import com.acg.t1prog2.Views.App;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class CadastrarPessoaView extends javax.swing.JFrame {
@@ -33,7 +34,7 @@ public class CadastrarPessoaView extends javax.swing.JFrame {
         tfNomePessoa = new javax.swing.JTextField();
         tfIdadePessoa = new javax.swing.JTextField();
         tfCpfPessoa = new javax.swing.JTextField();
-        btCadastrarAluno = new java.awt.Button();
+        btCadastrarPessoa = new java.awt.Button();
         rbAluno = new javax.swing.JRadioButton();
         rbProfessor = new javax.swing.JRadioButton();
 
@@ -49,9 +50,9 @@ public class CadastrarPessoaView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Idade:");
 
-        btCadastrarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btCadastrarAluno.setLabel("Cadastrar Pessoa");
-        btCadastrarAluno.addActionListener(new java.awt.event.ActionListener() {
+        btCadastrarPessoa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btCadastrarPessoa.setLabel("Cadastrar Pessoa");
+        btCadastrarPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastrarPessoa(evt);
             }
@@ -95,7 +96,7 @@ public class CadastrarPessoaView extends javax.swing.JFrame {
                         .addComponent(rbProfessor)
                         .addGap(77, 77, 77))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btCadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btCadastrarPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(139, 139, 139))))
         );
         layout.setVerticalGroup(
@@ -118,7 +119,7 @@ public class CadastrarPessoaView extends javax.swing.JFrame {
                     .addComponent(rbAluno)
                     .addComponent(rbProfessor))
                 .addGap(20, 20, 20)
-                .addComponent(btCadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btCadastrarPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -171,14 +172,46 @@ public class CadastrarPessoaView extends javax.swing.JFrame {
         pessoaDAO.salvarPessoa(p);
     }
 
+    public String getNome() {
+        return tfNomePessoa.getText();
+    }
+    
+    public String getCPF() {
+        return tfCpfPessoa.getText();
+    }
+    
+    public int getIdade() {
+        return Integer.parseInt(tfIdadePessoa.getText());
+    }
+    
+    public boolean getRbAluno() {
+        return rbAluno.isSelected();
+    }
+    
+    public boolean getRbProfessor() {
+        return rbProfessor.isSelected();
+    }
+    
+    public void adicionarAcaoBotaoCadastrar(ActionListener acao) {
+        btCadastrarPessoa.addActionListener(acao);
+    }
+    
     private void limparTela() {
         tfNomePessoa.setText("");
         tfCpfPessoa.setText("");
         tfIdadePessoa.setText("");
     }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button btCadastrarAluno;
+    private java.awt.Button btCadastrarPessoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

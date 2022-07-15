@@ -8,6 +8,7 @@ import com.acg.t1prog2.DAO.EquipamentoDAO;
 import com.acg.t1prog2.Exceptions.IdentificadorUnicoException;
 import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Models.Equipamento;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class CadastrarEquipamentoView extends javax.swing.JFrame {
@@ -120,6 +121,22 @@ public class CadastrarEquipamentoView extends javax.swing.JFrame {
         equipDAO.salvarEquipamento(e);
     }
 
+    public String getNome() {
+        return tfNomeEquip.getText();
+    }
+    
+    public String getCodigo() {
+        return tfCodigoEquip.getText();
+    }
+    
+    public String getMarca() {
+        return tfMarcaEquip.getText();
+    }
+    
+    public void adicionarAcaoBotaoCadastrar(ActionListener acao) {
+        btCadastrarEquip.addActionListener(acao);
+    }
+    
     private void limparTela() {
         tfNomeEquip.setText("");
         tfCodigoEquip.setText("");

@@ -7,6 +7,7 @@ package com.acg.t1prog2.Views.Equipamento;
 import com.acg.t1prog2.DAO.EquipamentoDAO;
 import com.acg.t1prog2.Models.Equipamento;
 import com.acg.t1prog2.Views.App;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class RemoverEquipamentoView extends javax.swing.JFrame {
@@ -86,6 +87,18 @@ public class RemoverEquipamentoView extends javax.swing.JFrame {
         for(Equipamento equip : equipDAO.recuperarTodosEquipamentos()) {
             cbEditarEquip.addItem(equip);
         }
+    }
+    
+    public void adicionarAcaoRemover(ActionListener acao) {
+        btRemoverEquip.addActionListener(acao);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

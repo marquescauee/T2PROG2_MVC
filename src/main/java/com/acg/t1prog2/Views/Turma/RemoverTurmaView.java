@@ -7,6 +7,7 @@ package com.acg.t1prog2.Views.Turma;
 import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Turma;
 import com.acg.t1prog2.Views.App;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class RemoverTurmaView extends javax.swing.JFrame {
@@ -86,6 +87,22 @@ public class RemoverTurmaView extends javax.swing.JFrame {
         for (Turma turma : turmaDAO.recuperarTodasTurmas()) {
             this.cbTurma.addItem(turma);
         }
+    }
+    
+    public Turma getTurma() {
+        return (Turma) cbTurma.getSelectedItem();
+    }
+    
+    public void adicionarAcaoRemoverTurma(ActionListener acao) {
+        btRemoverTurma.addActionListener(acao);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

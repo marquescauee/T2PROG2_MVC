@@ -9,6 +9,8 @@ import com.acg.t1prog2.Models.Aluno;
 import com.acg.t1prog2.Models.Mensalidade;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Views.App;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class CalcularMensalidadeAlunoView extends javax.swing.JFrame {
 
@@ -101,6 +103,18 @@ public class CalcularMensalidadeAlunoView extends javax.swing.JFrame {
                 cbAluno.addItem(a);
             }
         }
+    }
+    
+    public Aluno getAluno() {
+        return (Aluno) cbAluno.getSelectedItem();
+    }
+    
+    public void adicionarAcaoBotaoCalcular(ActionListener acao) {
+        btCalcular.addActionListener(acao);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
     }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,6 +9,7 @@ import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Exceptions.IdadeException;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Views.App;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class EditarPessoaView extends javax.swing.JFrame {
@@ -134,9 +135,33 @@ public class EditarPessoaView extends javax.swing.JFrame {
         }
     }
 
+    public Pessoa getPessoa() {
+        return (Pessoa) cbPessoas.getSelectedItem();
+    }
+    
+    public String getNome() {
+        return tfNomePessoa.getText();
+    }
+    
+    public int getIdade() {
+        return Integer.parseInt(tfIdadePessoa.getText());
+    }
+    
+    public void adicionarAcaoBotaoEditar(ActionListener acao) {
+        btEditarAluno.addActionListener(acao);
+    }
+    
     private void limparTela() {
         tfNomePessoa.setText("");
         tfIdadePessoa.setText("");
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

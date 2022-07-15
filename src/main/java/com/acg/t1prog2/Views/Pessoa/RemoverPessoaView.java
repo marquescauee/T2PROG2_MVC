@@ -7,6 +7,7 @@ package com.acg.t1prog2.Views.Pessoa;
 import com.acg.t1prog2.DAO.PessoaDAO;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Views.App;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class RemoverPessoaView extends javax.swing.JFrame {
@@ -81,13 +82,27 @@ public class RemoverPessoaView extends javax.swing.JFrame {
         this.popularComboBox();
         
     }//GEN-LAST:event_removerPessoa
-
-    
     
     private void popularComboBox() {
         for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
             this.cbPessoas.addItem(p);
         }
+    }
+
+    public Pessoa getPessoa() {
+        return (Pessoa) cbPessoas.getSelectedItem();
+    }
+    
+    public void adicionarAcaoBotaoRemover(ActionListener acao) {
+        btRemoverAluno.addActionListener(acao);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

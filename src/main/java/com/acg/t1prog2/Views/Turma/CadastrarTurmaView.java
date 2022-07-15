@@ -11,6 +11,7 @@ import com.acg.t1prog2.Models.Esporte;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
 import com.acg.t1prog2.Models.Turma;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class CadastrarTurmaView extends javax.swing.JFrame {
@@ -125,6 +126,26 @@ public class CadastrarTurmaView extends javax.swing.JFrame {
     
     private void adicionarTurma(Turma turma) {
         turmaDAO.salvarTurma(turma);
+    }
+    
+    public Professor getProfessor() {
+        return (Professor) cbProfessor.getSelectedItem();
+    }
+    
+    public Esporte getEsporte() {
+        return (Esporte) cbEsporte.getSelectedItem();
+    }
+    
+    public void adicionarAcaoBotaoCadastrar(ActionListener acao) {
+        btCadastrarTurma.addActionListener(acao);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

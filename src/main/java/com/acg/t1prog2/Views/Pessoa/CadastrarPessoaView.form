@@ -61,7 +61,7 @@
                       <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btCadastrarAluno" min="-2" max="-2" attributes="0"/>
+                      <Component id="btCadastrarPessoa" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -92,7 +92,7 @@
                   <Component id="rbProfessor" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="btCadastrarAluno" min="-2" max="-2" attributes="0"/>
+              <Component id="btCadastrarPessoa" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -129,7 +129,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tfCpfPessoa">
     </Component>
-    <Component class="java.awt.Button" name="btCadastrarAluno">
+    <Component class="java.awt.Button" name="btCadastrarPessoa">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>

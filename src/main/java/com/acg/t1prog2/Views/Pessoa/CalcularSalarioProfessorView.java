@@ -9,6 +9,8 @@ import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
 import com.acg.t1prog2.Models.Turma;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class CalcularSalarioProfessorView extends javax.swing.JFrame {
 
@@ -103,8 +105,6 @@ public class CalcularSalarioProfessorView extends javax.swing.JFrame {
         taSalario.append("Salário: " + String.valueOf(salario));
     }//GEN-LAST:event_calcularSalario
 
-    
-    
     private void popularComboBox() {
         for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
             if(p instanceof Professor prof) {
@@ -113,6 +113,19 @@ public class CalcularSalarioProfessorView extends javax.swing.JFrame {
         }
     }
 
+    public Professor getProfessor() {
+        return (Professor) cbProfessor.getSelectedItem();
+    }
+    
+    public void adicionarAcaoBotaoCalcular(ActionListener acao) {
+        btCalcular.addActionListener(acao);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btCalcular;
     private javax.swing.JComboBox<Professor> cbProfessor;

@@ -9,6 +9,8 @@ import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Aluno;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Turma;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class TurmasAlunoView extends javax.swing.JFrame {
 
@@ -103,6 +105,18 @@ public class TurmasAlunoView extends javax.swing.JFrame {
                 cbAluno.addItem(a);
             }
         }
+    }
+    
+    public Aluno getAluno() {
+        return (Aluno) cbAluno.getSelectedItem();
+    }
+    
+    public void adicionarAcaoBotaoMostrar(ActionListener acao) {
+        btMostrarTurmas.addActionListener(acao);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

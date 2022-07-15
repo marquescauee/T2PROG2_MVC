@@ -11,6 +11,8 @@ import com.acg.t1prog2.Models.Esportes.Futebol;
 import com.acg.t1prog2.Models.Esportes.Natacao;
 import com.acg.t1prog2.Models.Esportes.Volei;
 import com.acg.t1prog2.Models.Lance;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class RegrasSimulacaoView extends javax.swing.JFrame {
 
@@ -334,6 +336,50 @@ public class RegrasSimulacaoView extends javax.swing.JFrame {
         taExibir.setText("");
     }//GEN-LAST:event_limparTela
 
+    public void adicionarAcaoBotaoLimpar(ActionListener acao) {
+        btnLimpar.addActionListener(acao);
+    } 
+    
+    public void adicionarAcaoBotaoRegrasFutebol(ActionListener acao) {
+        btRegraFut.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoBotaoRegrasBasquete(ActionListener acao) {
+        btRegraBasquete.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoBotaoRegrasVolei(ActionListener acao) {
+        btRegraVolei.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoBotaoRegrasNatacao(ActionListener acao) {
+        btRegraNatacao.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoBotaoSimularFutebol(ActionListener acao) {
+        btSimulaFut.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoBotaoSimularBasquete(ActionListener acao) {
+        btSimulaBasquete.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoBotaoSimularVolei(ActionListener acao) {
+        btSimulaVolei.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoBotaoSimularNatacao(ActionListener acao) {
+        btSimulaNatacao.addActionListener(acao);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btRegraBasquete;
     private java.awt.Button btRegraFut;

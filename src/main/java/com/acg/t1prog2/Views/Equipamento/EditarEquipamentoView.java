@@ -8,6 +8,7 @@ import com.acg.t1prog2.DAO.EquipamentoDAO;
 import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Models.Equipamento;
 import com.acg.t1prog2.Views.App;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class EditarEquipamentoView extends javax.swing.JFrame {
@@ -132,9 +133,33 @@ public class EditarEquipamentoView extends javax.swing.JFrame {
         }
     }
 
+    public Equipamento getEquipamento() {
+        return (Equipamento) cbEditarEquip.getSelectedItem();
+    }
+    
+    public String getNome() {
+        return tfNomeEquip.getText();
+    }
+    
+    public String getMarca() {
+        return tfMarcaEquip.getText();
+    }
+    
+    public void adicionarAcaoEditar(ActionListener acao) {
+        btEditarEquip.addActionListener(acao);
+    }
+    
     private void limparTela() {
         tfNomeEquip.setText("");
         tfMarcaEquip.setText("");
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
     }
 
 

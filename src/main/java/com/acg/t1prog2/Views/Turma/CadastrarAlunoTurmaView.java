@@ -13,6 +13,7 @@ import com.acg.t1prog2.Models.Mensalidade;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Turma;
 import com.acg.t1prog2.Views.App;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class CadastrarAlunoTurmaView extends javax.swing.JFrame {
@@ -190,6 +191,29 @@ public class CadastrarAlunoTurmaView extends javax.swing.JFrame {
 
     }
 
+    public Aluno getAluno() {
+        return (Aluno) cbAluno.getSelectedItem();
+    }
+    
+    public Turma getTurma() {
+        return (Turma) cbTurma.getSelectedItem();
+    }
+    
+    public Mensalidade getMensalidade() {
+        return (Mensalidade) cbMensalidade.getSelectedItem();
+    }
+    
+    public void adicionarAcaoBotaoCadastrar(ActionListener acao) {
+        btCadastrarAluno.addActionListener(acao);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
+    }
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btCadastrarAluno;
