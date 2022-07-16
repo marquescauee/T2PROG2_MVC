@@ -9,17 +9,13 @@ import com.acg.t1prog2.DAO.GinasioDAO;
 import com.acg.t1prog2.Models.Equipamento;
 import com.acg.t1prog2.Models.Ginasio;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class AssociarEquipamentoView extends javax.swing.JFrame {
 
-    private EquipamentoDAO equipDAO = new EquipamentoDAO();
-    private GinasioDAO ginasioDAO = new GinasioDAO();
-
     public AssociarEquipamentoView() {
         initComponents();
-
-        this.popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -44,11 +40,6 @@ public class AssociarEquipamentoView extends javax.swing.JFrame {
         btnAssociar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAssociar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAssociar.setLabel("Associar");
-        btnAssociar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                associarEquipamento(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,23 +81,15 @@ public class AssociarEquipamentoView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void associarEquipamento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_associarEquipamento
-        Equipamento tempEquip = (Equipamento) this.cbEquipamento.getSelectedItem();
-        Ginasio tempGinasio = (Ginasio) this.cbGinasio.getSelectedItem();
- 
-        tempGinasio.getListaEquipamentos().add(tempEquip);
-        tempGinasio.addEquipamentoMap(tempEquip);
-        
-        JOptionPane.showMessageDialog(null, "Associação realizada com sucesso!");
-    }//GEN-LAST:event_associarEquipamento
-
-    private void popularComboBox() {
-        for(Equipamento equip : equipDAO.recuperarTodosEquipamentos()) {
-            this.cbEquipamento.addItem(equip);
+    public void popularComboBoxGinasio(List<Ginasio> ginasios) {
+        for(Ginasio g : ginasios) {
+            cbGinasio.addItem(g);
         }
-        
-        for(Ginasio gin : ginasioDAO.recuperarTodosGinasios()) {
-            this.cbGinasio.addItem(gin);
+    }
+    
+    public void popularComboBoxEquipamentos(List<Equipamento> equipamentos) {
+        for(Equipamento e : equipamentos) {
+            cbEquipamento.addItem(e);
         }
     }
     

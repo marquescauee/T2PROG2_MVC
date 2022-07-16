@@ -89,9 +89,6 @@
         </Property>
         <Property name="label" type="java.lang.String" value="Calcular Sal&#xe1;rio"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calcularSalario"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

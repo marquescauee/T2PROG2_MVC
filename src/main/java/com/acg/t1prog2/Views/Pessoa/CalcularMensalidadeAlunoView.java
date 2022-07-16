@@ -4,22 +4,14 @@
  */
 package com.acg.t1prog2.Views.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
 import com.acg.t1prog2.Models.Aluno;
-import com.acg.t1prog2.Models.Mensalidade;
-import com.acg.t1prog2.Models.Pessoa;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+import java.util.List;
 
 public class CalcularMensalidadeAlunoView extends javax.swing.JFrame {
-
-    private PessoaDAO pessoaDAO = new PessoaDAO();
     
     public CalcularMensalidadeAlunoView() {
         initComponents();
-        
-        popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -40,11 +32,6 @@ public class CalcularMensalidadeAlunoView extends javax.swing.JFrame {
 
         btCalcular.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btCalcular.setLabel("Calcular Mensalidade total");
-        btCalcular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularMensalidade(evt);
-            }
-        });
 
         taMensalidades.setColumns(20);
         taMensalidades.setRows(5);
@@ -88,20 +75,14 @@ public class CalcularMensalidadeAlunoView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void calcularMensalidade(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularMensalidade
-        Aluno tempAluno = (Aluno) cbAluno.getSelectedItem();
-        
-        double mensalidadeTotal = tempAluno.calcularMensalidade();
-        
-        taMensalidades.append("Valor total: " + String.valueOf(mensalidadeTotal) + "\n");
-    }//GEN-LAST:event_calcularMensalidade
  
-    private void popularComboBox() {
-        for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            if(p instanceof Aluno a) {
-                cbAluno.addItem(a);
-            }
+    public void exibirValorTotal(String msg) {
+        taMensalidades.append(msg);
+    }
+    
+    public void popularComboBox(List<Aluno> alunos) {
+        for(Aluno a : alunos) {
+            cbAluno.addItem(a);
         }
     }
     

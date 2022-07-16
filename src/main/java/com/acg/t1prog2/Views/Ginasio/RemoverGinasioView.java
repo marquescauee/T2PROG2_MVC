@@ -4,19 +4,15 @@
  */
 package com.acg.t1prog2.Views.Ginasio;
 
-import com.acg.t1prog2.DAO.GinasioDAO;
 import com.acg.t1prog2.Models.Ginasio;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class RemoverGinasioView extends javax.swing.JFrame {
 
-    private GinasioDAO ginasioDAO = new GinasioDAO();
-    
     public RemoverGinasioView() {
         initComponents();
-        
-        this.popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -35,11 +31,6 @@ public class RemoverGinasioView extends javax.swing.JFrame {
 
         btRemoverGinasio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btRemoverGinasio.setLabel("Remover Ginásio");
-        btRemoverGinasio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removerGinasio(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,35 +64,28 @@ public class RemoverGinasioView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void removerGinasio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerGinasio
-        Ginasio tempGinasio = (Ginasio) this.cbGinasio.getSelectedItem();
-        
-        ginasioDAO.removerGinasio(tempGinasio);
-        JOptionPane.showMessageDialog(null, "Ginásio removido com sucesso!");
-       
-        this.cbGinasio.removeAllItems();
-        this.popularComboBox();
-    }//GEN-LAST:event_removerGinasio
-
-
-    private void popularComboBox() {
-        for (Ginasio ginasio : ginasioDAO.recuperarTodosGinasios()) {
+    public void limparComboBox() {
+        cbGinasio.removeAllItems();
+    }
+    
+    public void popularComboBox(List<Ginasio> ginasios) {
+        for (Ginasio ginasio : ginasios) {
             cbGinasio.addItem(ginasio);
         }
     }
-    
+
     public void adicionarAcaoBotaoRemover(ActionListener acao) {
         this.btRemoverGinasio.addActionListener(acao);
     }
-    
+
     public Ginasio getGinasio() {
         return (Ginasio) cbGinasio.getSelectedItem();
     }
-    
+
     public void exibir() {
         this.setVisible(true);
     }
-    
+
     public void exibirMensagem(String msg) {
         JOptionPane.showMessageDialog(null, msg);
     }

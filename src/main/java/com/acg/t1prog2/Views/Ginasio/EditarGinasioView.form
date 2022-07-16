@@ -139,9 +139,6 @@
         </Property>
         <Property name="label" type="java.lang.String" value="Editar Gin&#xe1;sio"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarGinasio"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>

@@ -4,18 +4,11 @@
  */
 package com.acg.t1prog2.Views.Ginasio;
 
-import com.acg.t1prog2.DAO.ReservaDAO;
-import com.acg.t1prog2.Models.Reserva;
-import com.acg.t1prog2.Views.App;
-
 public class ListarReservasGinasioView extends javax.swing.JFrame {
-
-    private ReservaDAO reservaDAO = new ReservaDAO();
     
     public ListarReservasGinasioView() {       
         initComponents();
-        
-        listarReservaGinasios();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -53,13 +46,12 @@ public class ListarReservasGinasioView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listarReservaGinasios() {
-        for(Reserva reserva : reservaDAO.recuperarTodasReservas()) {
-            
-            taListarReserva.append(reserva.toString());
-            
-            taListarReserva.append("--------------------------------------- \n");
-        }
+    public void listarReservaGinasios(String reserva) {
+        taListarReserva.append(reserva);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

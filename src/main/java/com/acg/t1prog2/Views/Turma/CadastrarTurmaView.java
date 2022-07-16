@@ -4,27 +4,16 @@
  */
 package com.acg.t1prog2.Views.Turma;
 
-import com.acg.t1prog2.DAO.EsporteDAO;
-import com.acg.t1prog2.DAO.PessoaDAO;
-import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Esporte;
-import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
-import com.acg.t1prog2.Models.Turma;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class CadastrarTurmaView extends javax.swing.JFrame {
-
-    private EsporteDAO esporteDAO = new EsporteDAO();
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-    private TurmaDAO turmaDAO = new TurmaDAO();
     
     public CadastrarTurmaView() {
         initComponents();
-        
-        this.popularCbEsporte();
-        this.popularCbProfessor();
     }
 
     @SuppressWarnings("unchecked")
@@ -48,11 +37,6 @@ public class CadastrarTurmaView extends javax.swing.JFrame {
 
         btCadastrarTurma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btCadastrarTurma.setLabel("Cadastrar Turma");
-        btCadastrarTurma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarTurma(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,36 +80,16 @@ public class CadastrarTurmaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastrarTurma(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarTurma
-        Professor prof = (Professor) this.cbProfessor.getSelectedItem();
-        Esporte esporte = (Esporte) this.cbEsporte.getSelectedItem();
-        
-        Turma turma = new Turma();
-        
-        turma.setProfessor(prof);
-        turma.setEsporte(esporte);
-        
-        this.adicionarTurma(turma);
-        
-        JOptionPane.showMessageDialog(null, "Turma cadastrada com sucesso!");
-    }//GEN-LAST:event_cadastrarTurma
-
-    private void popularCbEsporte() {
-        for(Esporte esp : esporteDAO.recuperarTodosEsportes()) {
+    public void popularCbEsporte(List<Esporte> esportes) {
+        for(Esporte esp : esportes) {
             this.cbEsporte.addItem(esp);
         }
     }
     
-    private void popularCbProfessor() {
-        for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            if(p instanceof Professor professor) {
-                this.cbProfessor.addItem(professor);
-            }
+    public void popularCbProfessor(List<Professor> professores) {
+        for(Professor p : professores) {
+            this.cbProfessor.addItem(p);
         }
-    }
-    
-    private void adicionarTurma(Turma turma) {
-        turmaDAO.salvarTurma(turma);
     }
     
     public Professor getProfessor() {

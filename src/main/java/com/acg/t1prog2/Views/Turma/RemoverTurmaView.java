@@ -4,20 +4,15 @@
  */
 package com.acg.t1prog2.Views.Turma;
 
-import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Turma;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class RemoverTurmaView extends javax.swing.JFrame {
-
-    private TurmaDAO turmaDAO = new TurmaDAO();
     
     public RemoverTurmaView() {
         initComponents();
-        
-        this.popularCbTurma();
     }
 
     @SuppressWarnings("unchecked")
@@ -36,11 +31,6 @@ public class RemoverTurmaView extends javax.swing.JFrame {
 
         btRemoverTurma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btRemoverTurma.setLabel("Remover Turma");
-        btRemoverTurma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removerTurma(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,20 +63,14 @@ public class RemoverTurmaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void removerTurma(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerTurma
-        Turma tempTurma = (Turma) this.cbTurma.getSelectedItem();
-        
-        turmaDAO.removerTurma(tempTurma);
-        JOptionPane.showMessageDialog(null, "Turma removida com sucesso!");
-        
-        this.cbTurma.removeAllItems();
-        this.popularCbTurma();
-    }//GEN-LAST:event_removerTurma
-
-    private void popularCbTurma() {
-        for (Turma turma : turmaDAO.recuperarTodasTurmas()) {
-            this.cbTurma.addItem(turma);
+    public void popularComboBox(List<Turma> turmas) {
+        for(Turma t : turmas) {
+            cbTurma.addItem(t);
         }
+    }
+    
+    public void limparComboBox() {
+        cbTurma.removeAllItems();
     }
     
     public Turma getTurma() {

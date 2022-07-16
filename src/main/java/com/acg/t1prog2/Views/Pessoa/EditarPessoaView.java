@@ -4,22 +4,15 @@
  */
 package com.acg.t1prog2.Views.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
-import com.acg.t1prog2.Exceptions.CampoVazioException;
-import com.acg.t1prog2.Exceptions.IdadeException;
 import com.acg.t1prog2.Models.Pessoa;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class EditarPessoaView extends javax.swing.JFrame {
-
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-
+    
     public EditarPessoaView() {
         initComponents();
-
-        this.popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -39,11 +32,6 @@ public class EditarPessoaView extends javax.swing.JFrame {
 
         btEditarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btEditarAluno.setLabel("Editar Pessoa");
-        btEditarAluno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarPessoa(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Idade:");
@@ -100,37 +88,8 @@ public class EditarPessoaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editarPessoa(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPessoa
-        Pessoa tempPessoa = (Pessoa) this.cbPessoas.getSelectedItem();
-
-        String nome = tempPessoa.getNome();
-        int idade = tempPessoa.getIdade();
-
-        if (!this.tfNomePessoa.getText().isBlank()) {
-            nome = tfNomePessoa.getText();
-        }
-
-        if (!this.tfIdadePessoa.getText().isBlank()) {
-            idade = Integer.parseInt(tfIdadePessoa.getText());
-        }
-
-        try {
-            tempPessoa.setNome(nome);
-            tempPessoa.setIdade(idade);
-            JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!");
-
-            this.cbPessoas.removeAllItems();
-            this.popularComboBox();
-            this.limparTela();
-        } catch(CampoVazioException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        } catch(IdadeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_editarPessoa
-
-    private void popularComboBox() {
-        for (Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
+    public void popularComboBox(List<Pessoa> pessoas) {
+        for (Pessoa p : pessoas) {
             this.cbPessoas.addItem(p);
         }
     }
@@ -151,7 +110,11 @@ public class EditarPessoaView extends javax.swing.JFrame {
         btEditarAluno.addActionListener(acao);
     }
     
-    private void limparTela() {
+    public void limparComboBox() {
+        cbPessoas.removeAllItems();
+    }
+    
+    public void limparTela() {
         tfNomePessoa.setText("");
         tfIdadePessoa.setText("");
     }

@@ -4,23 +4,14 @@
  */
 package com.acg.t1prog2.Views.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
-import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Aluno;
-import com.acg.t1prog2.Models.Pessoa;
-import com.acg.t1prog2.Models.Turma;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+import java.util.List;
 
 public class TurmasAlunoView extends javax.swing.JFrame {
 
-    private TurmaDAO turmaDAO = new TurmaDAO();
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-    
     public TurmasAlunoView() {
         initComponents();
-        
-        popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -41,11 +32,6 @@ public class TurmasAlunoView extends javax.swing.JFrame {
 
         btMostrarTurmas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btMostrarTurmas.setLabel("Mostrar Turmas");
-        btMostrarTurmas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mostrarTurmas(evt);
-            }
-        });
 
         taMostrarAlunos.setColumns(20);
         taMostrarAlunos.setRows(5);
@@ -87,23 +73,13 @@ public class TurmasAlunoView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mostrarTurmas(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTurmas
-        Aluno tempAluno = (Aluno) cbAluno.getSelectedItem();
-        
-        for(Turma t : turmaDAO.recuperarTodasTurmas()) {
-            for(Aluno a : t.getListaAlunos()) {
-                if(a.getCpf().equals(tempAluno.getCpf())) {
-                    taMostrarAlunos.append(t + "\n");
-                }
-            }
-        }
-    }//GEN-LAST:event_mostrarTurmas
-
-    private void popularComboBox() {
-        for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            if(p instanceof Aluno a) {
-                cbAluno.addItem(a);
-            }
+    public void mostrarAlunos(String msg) {
+        taMostrarAlunos.append(msg);
+    }
+    
+    public void popularComboBox(List<Aluno> alunos) {
+        for(Aluno a : alunos) {   
+            cbAluno.addItem(a);
         }
     }
     

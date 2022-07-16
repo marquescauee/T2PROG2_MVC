@@ -4,26 +4,17 @@
  */
 package com.acg.t1prog2.Views.Turma;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
-import com.acg.t1prog2.DAO.TurmaDAO;
-import com.acg.t1prog2.Exceptions.CadastroTurmaException;
 import com.acg.t1prog2.Models.Aluno;
-import com.acg.t1prog2.Models.Esporte;
 import com.acg.t1prog2.Models.Mensalidade;
-import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Turma;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class CadastrarAlunoTurmaView extends javax.swing.JFrame {
 
-    private TurmaDAO turmaDAO = new TurmaDAO();
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-
     public CadastrarAlunoTurmaView() {
         initComponents();
-        this.popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -49,11 +40,6 @@ public class CadastrarAlunoTurmaView extends javax.swing.JFrame {
 
         btCadastrarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btCadastrarAluno.setLabel("Cadastrar Aluno");
-        btCadastrarAluno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarAluno(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Tipo de Mensalidade:");
@@ -111,86 +97,24 @@ public class CadastrarAlunoTurmaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastrarAluno(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarAluno
-        try {
-            Turma tempTurma = (Turma) cbTurma.getSelectedItem();
-            Aluno tempAluno = (Aluno) cbAluno.getSelectedItem();
-            Mensalidade tempMens = (Mensalidade) cbMensalidade.getSelectedItem();
-            Esporte tempEsporteTurma = tempTurma.getEsporte();
-
-            int qtdAlunosTurma = tempTurma.getListaAlunos().size();
-
-            verificarMensalidade(tempMens);
-            verificaQtdJogadoresTurma(qtdAlunosTurma, tempEsporteTurma);
-            naoExisteAlunoNaTurma(tempTurma, tempAluno);
-
-            salvarAlunoNaTurma(tempTurma, tempAluno);
-            tempAluno.getListaMensalidades().add(tempMens);
-            JOptionPane.showMessageDialog(null, "Aluno cadastrado na turma com sucesso!");
-
-        } catch (CadastroTurmaException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Algo não foi selecionado. Tente novamente.");
+    public void popularComboBoxAluno(List<Aluno> alunos) {
+        for (Aluno a : alunos) {
+            cbAluno.addItem(a);           
         }
-    }//GEN-LAST:event_cadastrarAluno
-
-    private boolean verificarMensalidade(Mensalidade mensalidade) throws CadastroTurmaException {
-        Turma tempTurma = (Turma) cbTurma.getSelectedItem();
-
-        if (tempTurma.getEsporte().getListaMensalidades().contains(mensalidade)) {
-            return tempTurma.getEsporte().getListaMensalidades().contains(mensalidade);
-        } else {
-            throw new CadastroTurmaException("A mensalidade selecionada não está presente para a turma selecionada.");
-        }
-    }
-
-    private boolean verificaQtdJogadoresTurma(int qtdAlunosTurma, Esporte esporte) throws CadastroTurmaException {
-        if (qtdAlunosTurma < esporte.getQtdJogadores()) {
-            return true;
-        } else {
-            throw new CadastroTurmaException("A turma já está cheia. Entre em contato para mais informações.");
-        }
-    }
-
-    private boolean naoExisteAlunoNaTurma(Turma turma, Aluno aluno) throws CadastroTurmaException {
-        for(Turma t : turmaDAO.recuperarTodasTurmas()) {
-            if(t.getEsporte().equals(turma.getEsporte()) && t.getProfessor().equals(turma.getProfessor())) {
-                if(!t.getListaAlunos().contains(aluno)) {
-                    return true;
-                }
-            }
-        }
-        throw new CadastroTurmaException("O aluno já está cadastrado nessa turma.");
     }
     
-    private void salvarAlunoNaTurma(Turma t, Aluno a) {
-        t.addAluno(a);
-    }
-
-    private void popularComboBox() {
-        for (Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            if (p instanceof Aluno a) {
-                cbAluno.addItem(a);
-            }
-        }
-
-        for (Turma t : turmaDAO.recuperarTodasTurmas()) {
+    public void popularComboBoxTurma(List<Turma> turmas) {
+        for(Turma t : turmas) {
             cbTurma.addItem(t);
         }
-
-        for (Turma t : turmaDAO.recuperarTodasTurmas()) {
-            Esporte esporte = t.getEsporte();
-
-            for (Mensalidade m : esporte.getListaMensalidades()) {
-                cbMensalidade.addItem(m);
-            }
-
-            cbMensalidade.addItem(null);
-        }
-
     }
-
+    
+    public void popularComboBoxMensalidade(List<Mensalidade> mensalidades) {
+        for(Mensalidade m : mensalidades) {
+            cbMensalidade.addItem(m);
+        }
+    }
+  
     public Aluno getAluno() {
         return (Aluno) cbAluno.getSelectedItem();
     }

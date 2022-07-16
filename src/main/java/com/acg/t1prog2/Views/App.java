@@ -4,6 +4,29 @@
  */
 package com.acg.t1prog2.Views;
 
+import com.acg.t1prog2.Controllers.Equipamento.CadastrarEquipamentoController;
+import com.acg.t1prog2.Controllers.Equipamento.EditarEquipamentoController;
+import com.acg.t1prog2.Controllers.Equipamento.RemoverEquipamentoController;
+import com.acg.t1prog2.Controllers.Esporte.RegrasSimulacaoController;
+import com.acg.t1prog2.Controllers.Ginasio.AssociarEquipamentoController;
+import com.acg.t1prog2.Controllers.Ginasio.BuscarEquipamentoController;
+import com.acg.t1prog2.Controllers.Ginasio.CadastrarGinasioController;
+import com.acg.t1prog2.Controllers.Ginasio.EditarGinasioController;
+import com.acg.t1prog2.Controllers.Ginasio.ListarReservasGinasioController;
+import com.acg.t1prog2.Controllers.Ginasio.RemoverGinasioController;
+import com.acg.t1prog2.Controllers.Ginasio.ReservarGinasioController;
+import com.acg.t1prog2.Controllers.Pessoa.CadastrarPessoaController;
+import com.acg.t1prog2.Controllers.Pessoa.CalcularMensalidadeAlunoController;
+import com.acg.t1prog2.Controllers.Pessoa.CalcularSalarioProfessorController;
+import com.acg.t1prog2.Controllers.Pessoa.EditarPessoaController;
+import com.acg.t1prog2.Controllers.Pessoa.ListarPessoaController;
+import com.acg.t1prog2.Controllers.Pessoa.RemoverPessoaController;
+import com.acg.t1prog2.Controllers.Pessoa.TurmasAlunoController;
+import com.acg.t1prog2.Controllers.Turma.CadastrarAlunoTurmaController;
+import com.acg.t1prog2.Controllers.Turma.CadastrarTurmaController;
+import com.acg.t1prog2.Controllers.Turma.EditarTurmaController;
+import com.acg.t1prog2.Controllers.Turma.ListarTurmaController;
+import com.acg.t1prog2.Controllers.Turma.RemoverTurmaController;
 import com.acg.t1prog2.Models.Ginasio;
 import com.acg.t1prog2.Views.Equipamento.CadastrarEquipamentoView;
 import com.acg.t1prog2.Views.Equipamento.EditarEquipamentoView;
@@ -420,9 +443,8 @@ public class App extends javax.swing.JFrame {
 
     //Início de eventos de Abertura de telas do Ginásio
     private void mnCadastrarGinasioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCadastrarGinasioActionPerformed
-        CadastrarGinasioView cg = new CadastrarGinasioView();
-
-        cg.setVisible(true);
+        CadastrarGinasioController  cgc = new CadastrarGinasioController(new CadastrarGinasioView());
+        cgc.exibirTela();
     }//GEN-LAST:event_mnCadastrarGinasioActionPerformed
 
     private void mnListarGinasioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnListarGinasioActionPerformed
@@ -432,23 +454,21 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_mnListarGinasioActionPerformed
 
     private void mnEditarGinasioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEditarGinasioActionPerformed
-        EditarGinasioView eg = new EditarGinasioView();
-
-        eg.setVisible(true);
+        EditarGinasioController egc = new EditarGinasioController(new EditarGinasioView());
+        egc.exibirTela();
     }//GEN-LAST:event_mnEditarGinasioActionPerformed
 
     private void mnRemoverGinasioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRemoverGinasioActionPerformed
-        RemoverGinasioView rg = new RemoverGinasioView();
-
-        rg.setVisible(true);
+        RemoverGinasioController rgc = new RemoverGinasioController(new RemoverGinasioView());
+        rgc.exibirTela();
     }//GEN-LAST:event_mnRemoverGinasioActionPerformed
     //Fim de eventos de Abertura de telas do Ginásio
 
     //Início de eventos de Abertura de telas de Equipamentos
     private void mnCadastrarEquipamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCadastrarEquipamentosActionPerformed
-        CadastrarEquipamentoView ce = new CadastrarEquipamentoView();
-
-        ce.setVisible(true);
+        CadastrarEquipamentoController cec = new CadastrarEquipamentoController(new CadastrarEquipamentoView());
+        
+        cec.exibirTela();
     }//GEN-LAST:event_mnCadastrarEquipamentosActionPerformed
 
     private void mnListarEquipamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnListarEquipamentosActionPerformed
@@ -458,121 +478,102 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_mnListarEquipamentosActionPerformed
 
     private void mnEditarEquipamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEditarEquipamentosActionPerformed
-        EditarEquipamentoView ee = new EditarEquipamentoView();
-
-        ee.setVisible(true);
+        EditarEquipamentoController eec = new EditarEquipamentoController(new EditarEquipamentoView());
+        eec.exibirTela();
     }//GEN-LAST:event_mnEditarEquipamentosActionPerformed
 
     private void mnRemoverEquipamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRemoverEquipamentosActionPerformed
-        RemoverEquipamentoView re = new RemoverEquipamentoView();
-
-        re.setVisible(true);
+        RemoverEquipamentoController rec = new RemoverEquipamentoController(new RemoverEquipamentoView());
+        rec.exibirTela();
     }//GEN-LAST:event_mnRemoverEquipamentosActionPerformed
     //Fim de eventos de Abertura de telas de Equipamentos
 
     //Início de eventos de Abertura de telas de Turmas
     private void mnCadastrarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCadastrarTurmaActionPerformed
-        CadastrarTurmaView ct = new CadastrarTurmaView();
-
-        ct.setVisible(true);
+        CadastrarTurmaController ctc = new CadastrarTurmaController(new CadastrarTurmaView());
+        ctc.exibirTela();
     }//GEN-LAST:event_mnCadastrarTurmaActionPerformed
 
     private void mnListarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnListarTurmaActionPerformed
-        ListarTurmaView lt = new ListarTurmaView();
-
-        lt.setVisible(true);
+        ListarTurmaController ltc = new ListarTurmaController(new ListarTurmaView());
+        ltc.exibirTela();
     }//GEN-LAST:event_mnListarTurmaActionPerformed
 
     private void mnEditarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEditarTurmaActionPerformed
-        EditarTurmaView et = new EditarTurmaView();
-
-        et.setVisible(true);
+        EditarTurmaController etc = new EditarTurmaController(new EditarTurmaView());
+        etc.exibirTela();
     }//GEN-LAST:event_mnEditarTurmaActionPerformed
 
     private void mnRemoverTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRemoverTurmaActionPerformed
-        RemoverTurmaView rt = new RemoverTurmaView();
-
-        rt.setVisible(true);
+        RemoverTurmaController rtc = new RemoverTurmaController(new RemoverTurmaView());
+        rtc.exibirTela();
     }//GEN-LAST:event_mnRemoverTurmaActionPerformed
 
     //Início de eventos de Abertura de telas de Pessoas
     private void miCadastrarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarPessoaActionPerformed
-        CadastrarPessoaView cpv = new CadastrarPessoaView();
-
-        cpv.setVisible(true);
+        CadastrarPessoaController cpc = new CadastrarPessoaController(new CadastrarPessoaView());
+        cpc.exibirTela();
     }//GEN-LAST:event_miCadastrarPessoaActionPerformed
 
     private void miListarPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miListarPessoasActionPerformed
-        ListarPessoaView lpv = new ListarPessoaView();
-
-        lpv.setVisible(true);
+        ListarPessoaController lpc = new ListarPessoaController(new ListarPessoaView());
+        lpc.exibirTela();
     }//GEN-LAST:event_miListarPessoasActionPerformed
 
     private void miEditarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEditarPessoaActionPerformed
-        EditarPessoaView epv = new EditarPessoaView();
-
-        epv.setVisible(true);
+        EditarPessoaController epc = new EditarPessoaController(new EditarPessoaView());
+        epc.exibirTela();
     }//GEN-LAST:event_miEditarPessoaActionPerformed
 
     private void miRemoverPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRemoverPessoaActionPerformed
-        RemoverPessoaView rpv = new RemoverPessoaView();
-
-        rpv.setVisible(true);
+        RemoverPessoaController rpc = new RemoverPessoaController(new RemoverPessoaView());
+        rpc.exibirTela();
     }//GEN-LAST:event_miRemoverPessoaActionPerformed
     //Fim de eventos de Abertura de telas de Turmas
 
     private void mnAssociarEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAssociarEquipamentoActionPerformed
-        AssociarEquipamentoView aev = new AssociarEquipamentoView();
-
-        aev.setVisible(true);
+        AssociarEquipamentoController aec = new AssociarEquipamentoController(new AssociarEquipamentoView());
+        aec.exibirTela();
     }//GEN-LAST:event_mnAssociarEquipamentoActionPerformed
 
     private void mnBuscarEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBuscarEquipamentoActionPerformed
-        BuscarEquipamentoView bev = new BuscarEquipamentoView();
-
-        bev.setVisible(true);
+        BuscarEquipamentoController bec = new BuscarEquipamentoController(new BuscarEquipamentoView());
+        bec.exibirTela();
     }//GEN-LAST:event_mnBuscarEquipamentoActionPerformed
 
     private void miCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarAlunoActionPerformed
-        CadastrarAlunoTurmaView catv = new CadastrarAlunoTurmaView();
-
-        catv.setVisible(true);
+        CadastrarAlunoTurmaController catc = new CadastrarAlunoTurmaController(new CadastrarAlunoTurmaView());
+        catc.exibirTela();
     }//GEN-LAST:event_miCadastrarAlunoActionPerformed
 
     private void miAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlunoActionPerformed
-        CalcularMensalidadeAlunoView cmav = new CalcularMensalidadeAlunoView();
-
-        cmav.setVisible(true);
+        CalcularMensalidadeAlunoController cmac = new CalcularMensalidadeAlunoController(new CalcularMensalidadeAlunoView());
+        cmac.exibirTela();
     }//GEN-LAST:event_miAlunoActionPerformed
 
     private void miProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miProfessorActionPerformed
-        CalcularSalarioProfessorView cspf = new CalcularSalarioProfessorView();
-
-        cspf.setVisible(true);
+        CalcularSalarioProfessorController cspc = new CalcularSalarioProfessorController(new CalcularSalarioProfessorView());
+        cspc.exibirTela();
     }//GEN-LAST:event_miProfessorActionPerformed
 
     private void miTurmasAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTurmasAlunoActionPerformed
-        TurmasAlunoView tav = new TurmasAlunoView();
-
-        tav.setVisible(true);
+        TurmasAlunoController tac = new TurmasAlunoController(new TurmasAlunoView());
+        tac.exibirTela();
     }//GEN-LAST:event_miTurmasAlunoActionPerformed
 
     private void reservarGinasio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservarGinasio
-        ReservarGinasioView rgv = new ReservarGinasioView();
-
-        rgv.setVisible(true);
+        ReservarGinasioController rgc = new ReservarGinasioController(new ReservarGinasioView());
+        rgc.exibirTela();
     }//GEN-LAST:event_reservarGinasio
 
     private void listarReservas(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarReservas
-        ListarReservasGinasioView lrgv = new ListarReservasGinasioView();
-
-        lrgv.setVisible(true);
+        ListarReservasGinasioController lrgc = new ListarReservasGinasioController(new ListarReservasGinasioView());
+        lrgc.exibirTela();
     }//GEN-LAST:event_listarReservas
 
     private void mostrarRegrasSimulacao(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarRegrasSimulacao
-        RegrasSimulacaoView rsv = new RegrasSimulacaoView();
-
-        rsv.setVisible(true);
+        RegrasSimulacaoController rsc = new RegrasSimulacaoController(new RegrasSimulacaoView());
+        rsc.exibirTela();
     }//GEN-LAST:event_mostrarRegrasSimulacao
  
     //Início Método Main

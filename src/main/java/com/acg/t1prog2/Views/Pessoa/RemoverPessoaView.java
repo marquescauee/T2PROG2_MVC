@@ -4,19 +4,15 @@
  */
 package com.acg.t1prog2.Views.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
 import com.acg.t1prog2.Models.Pessoa;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class RemoverPessoaView extends javax.swing.JFrame {
 
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-    
     public RemoverPessoaView() {
         initComponents();
-        this.popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -35,11 +31,6 @@ public class RemoverPessoaView extends javax.swing.JFrame {
 
         btRemoverAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btRemoverAluno.setLabel("Remover Pessoa");
-        btRemoverAluno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removerPessoa(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,24 +62,17 @@ public class RemoverPessoaView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void removerPessoa(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerPessoa
-        Pessoa tempPessoa = (Pessoa) this.cbPessoas.getSelectedItem();
-        
-        pessoaDAO.removerPessoa(tempPessoa);
-        JOptionPane.showMessageDialog(null, "Pessoa removida com sucesso!");
-        
-        this.cbPessoas.removeAllItems();
-        this.popularComboBox();
-        
-    }//GEN-LAST:event_removerPessoa
     
-    private void popularComboBox() {
-        for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
+    public void popularComboBox(List<Pessoa> pessoas) {
+        for(Pessoa p : pessoas) {
             this.cbPessoas.addItem(p);
         }
     }
 
+    public void limparComboBox() {
+        cbPessoas.removeAllItems();
+    }
+    
     public Pessoa getPessoa() {
         return (Pessoa) cbPessoas.getSelectedItem();
     }

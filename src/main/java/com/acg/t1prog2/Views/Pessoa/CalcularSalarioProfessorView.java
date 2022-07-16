@@ -4,23 +4,14 @@
  */
 package com.acg.t1prog2.Views.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
-import com.acg.t1prog2.DAO.TurmaDAO;
-import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
-import com.acg.t1prog2.Models.Turma;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+import java.util.List;
 
 public class CalcularSalarioProfessorView extends javax.swing.JFrame {
-
-    private TurmaDAO turmaDAO = new TurmaDAO();
-    private PessoaDAO pessoaDAO = new PessoaDAO();
     
     public CalcularSalarioProfessorView() {
         initComponents();
-        
-        popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -41,11 +32,6 @@ public class CalcularSalarioProfessorView extends javax.swing.JFrame {
 
         btCalcular.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btCalcular.setLabel("Calcular Salário");
-        btCalcular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularSalario(evt);
-            }
-        });
 
         taSalario.setColumns(20);
         taSalario.setRows(5);
@@ -88,28 +74,13 @@ public class CalcularSalarioProfessorView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void calcularSalario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularSalario
-        Professor tempProf = (Professor) cbProfessor.getSelectedItem();
-        
-        double aulasMes = 8;
-        int cont = 0;
-        
-        for(Turma t : turmaDAO.recuperarTodasTurmas()) {
-            if(t.getProfessor().getCpf().equals(tempProf.getCpf())) {
-                cont++;
-            }
-        }
-        
-        double salario = (tempProf.getHoraAula() * aulasMes) * cont;
-        
-        taSalario.append("Salário: " + String.valueOf(salario));
-    }//GEN-LAST:event_calcularSalario
-
-    private void popularComboBox() {
-        for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            if(p instanceof Professor prof) {
-                cbProfessor.addItem(prof);
-            }
+    public void exibirSalario(String msg) {
+        taSalario.append(msg);
+    }
+    
+    public void popularComboBox(List<Professor> professores) {
+        for(Professor p : professores) {
+            cbProfessor.addItem(p);
         }
     }
 

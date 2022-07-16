@@ -4,25 +4,16 @@
  */
 package com.acg.t1prog2.Views.Turma;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
-import com.acg.t1prog2.DAO.TurmaDAO;
-import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
 import com.acg.t1prog2.Models.Turma;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class EditarTurmaView extends javax.swing.JFrame {
 
-    private TurmaDAO turmaDAO = new TurmaDAO();
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-
     public EditarTurmaView() {
         initComponents();
-        
-        this.popularCbProfessor();
-        this.popularCbTurma();
     }
 
     @SuppressWarnings("unchecked")
@@ -43,11 +34,6 @@ public class EditarTurmaView extends javax.swing.JFrame {
 
         btEditarTurma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btEditarTurma.setLabel("Editar Turma");
-        btEditarTurma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarTurma(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Turma:");
@@ -94,31 +80,20 @@ public class EditarTurmaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editarTurma(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarTurma
-        Turma tempTurma = (Turma) this.cbTurma.getSelectedItem();
-        Professor tempProfessor = (Professor) this.cbProfessor.getSelectedItem();
-        
-        tempTurma.setProfessor(tempProfessor);
-        
-        JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
-        
-        this.cbProfessor.removeAllItems();
-        this.cbTurma.removeAllItems();
-        this.popularCbTurma();
-        this.popularCbProfessor();
-    }//GEN-LAST:event_editarTurma
-
-    private void popularCbTurma() {
-        for (Turma turma : turmaDAO.recuperarTodasTurmas()) {
+    public void limparComboBox() {
+        cbProfessor.removeAllItems();
+        cbTurma.removeAllItems();
+    }
+    
+    public void popularCbTurma(List<Turma> turmas) {
+        for (Turma turma : turmas) {
             this.cbTurma.addItem(turma);
         }
     }
 
-    private void popularCbProfessor() {
-        for (Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            if (p instanceof Professor professor) {
-                this.cbProfessor.addItem(professor);
-            }
+    public void popularCbProfessor(List<Professor> professores) {
+        for (Professor p : professores) {
+            this.cbProfessor.addItem(p);
         }
     }
 

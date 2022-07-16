@@ -4,21 +4,11 @@
  */
 package com.acg.t1prog2.Views.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
-import com.acg.t1prog2.Exceptions.CampoVazioException;
-import com.acg.t1prog2.Exceptions.IdadeException;
-import com.acg.t1prog2.Exceptions.IdentificadorUnicoException;
-import com.acg.t1prog2.Models.Aluno;
-import com.acg.t1prog2.Models.Pessoa;
-import com.acg.t1prog2.Models.Professor;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class CadastrarPessoaView extends javax.swing.JFrame {
-
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-
+    
     public CadastrarPessoaView() {
         initComponents();
     }
@@ -52,11 +42,6 @@ public class CadastrarPessoaView extends javax.swing.JFrame {
 
         btCadastrarPessoa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btCadastrarPessoa.setLabel("Cadastrar Pessoa");
-        btCadastrarPessoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarPessoa(evt);
-            }
-        });
 
         buttonGroup1.add(rbAluno);
         rbAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -127,51 +112,6 @@ public class CadastrarPessoaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastrarPessoa(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarPessoa
-
-        String nome = tfNomePessoa.getText();
-        String cpf = tfCpfPessoa.getText();
-
-        Pessoa p;
-
-        if (!rbAluno.isSelected() && !rbProfessor.isSelected()) {
-            JOptionPane.showMessageDialog(null, "Por favor, selecione professor ou aluno.");
-            return;
-        }
-
-        if (rbAluno.isSelected()) {
-            p = new Aluno();
-        } else if (rbProfessor.isSelected()) {
-            p = new Professor();
-        } else {
-            p = null;
-        }
-
-        try {
-            int idade = Integer.parseInt(tfIdadePessoa.getText());
-            p.setNome(nome);
-            p.setCpf(cpf);
-            p.setIdade(idade);
-
-            this.adicionarPessoa(p);
-            JOptionPane.showMessageDialog(null, "Pessoa cadastrada com sucesso!");
-            this.limparTela();
-
-        } catch (CampoVazioException e) {
-            JOptionPane.showMessageDialog(null, "Campo em branco.");
-        } catch (IdentificadorUnicoException e) {
-            JOptionPane.showMessageDialog(null, "Já existe uma pessoa com esse cpf");
-        } catch (IdadeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "CPF Inválido");
-        }
-    }//GEN-LAST:event_cadastrarPessoa
-
-    private void adicionarPessoa(Pessoa p) {
-        pessoaDAO.salvarPessoa(p);
-    }
-
     public String getNome() {
         return tfNomePessoa.getText();
     }
@@ -196,7 +136,7 @@ public class CadastrarPessoaView extends javax.swing.JFrame {
         btCadastrarPessoa.addActionListener(acao);
     }
     
-    private void limparTela() {
+    public void limparTela() {
         tfNomePessoa.setText("");
         tfCpfPessoa.setText("");
         tfIdadePessoa.setText("");

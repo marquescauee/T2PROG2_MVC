@@ -4,21 +4,15 @@
  */
 package com.acg.t1prog2.Views.Ginasio;
 
-import com.acg.t1prog2.DAO.GinasioDAO;
-import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Models.Ginasio;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class EditarGinasioView extends javax.swing.JFrame {
 
-    private GinasioDAO ginasioDAO = new GinasioDAO();
-
     public EditarGinasioView() {
         initComponents();
-
-        this.popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -54,11 +48,6 @@ public class EditarGinasioView extends javax.swing.JFrame {
 
         btEditarGinasio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btEditarGinasio.setLabel("Editar Ginásio");
-        btEditarGinasio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarGinasio(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Ginásio:");
@@ -125,50 +114,12 @@ public class EditarGinasioView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editarGinasio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarGinasio
-        Ginasio tempGinasio = (Ginasio) this.cbGinasio.getSelectedItem();
-
-        String nome = tempGinasio.getNome();
-        int anoCriacao = tempGinasio.getAnoCriacao();
-        double tamanho = tempGinasio.getTamanho();
-        String endereco = tempGinasio.getEndereco();
-
-        if (!this.tfNomeGinasio.getText().isBlank()) {
-            nome = tfNomeGinasio.getText();
-        }
-
-        if (!this.tfAnoCriacaoGinasio.getText().isBlank()) {
-            anoCriacao = Integer.parseInt(tfAnoCriacaoGinasio.getText());
-        }
-
-        if (!this.tfTamanhoGinasio.getText().isBlank()) {
-            tamanho = Double.parseDouble(tfTamanhoGinasio.getText());
-        }
-
-        if (!this.tfEnderecoGinasio.getText().isBlank()) {
-            endereco = tfEnderecoGinasio.getText();
-        }
-
-        try {
-            tempGinasio.setNome(nome);
-            tempGinasio.setAnoCriacao(anoCriacao);
-            tempGinasio.setEndereco(endereco);
-            tempGinasio.setTamanho(tamanho);
-
-            JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!");
-
-            this.cbGinasio.removeAllItems();
-            this.popularComboBox();
-            this.limparTela();
-
-        } catch (CampoVazioException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
-    }//GEN-LAST:event_editarGinasio
-
-    private void popularComboBox() {
-        for (Ginasio ginasio : ginasioDAO.recuperarTodosGinasios()) {
+    public void limparComboBox() {
+        cbGinasio.removeAllItems();
+    }
+    
+    public void popularComboBox(List<Ginasio> ginasios) {
+        for (Ginasio ginasio : ginasios) {
             cbGinasio.addItem(ginasio);
         }
     }
@@ -197,7 +148,7 @@ public class EditarGinasioView extends javax.swing.JFrame {
         return tfEnderecoGinasio.getText();
     }
 
-    private void limparTela() {
+    public void limparTela() {
         tfNomeGinasio.setText("");
         tfAnoCriacaoGinasio.setText("");
         tfTamanhoGinasio.setText("");

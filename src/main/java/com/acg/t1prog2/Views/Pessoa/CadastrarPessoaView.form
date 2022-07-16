@@ -136,9 +136,6 @@
         </Property>
         <Property name="label" type="java.lang.String" value="Cadastrar Pessoa"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarPessoa"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbAluno">
       <Properties>

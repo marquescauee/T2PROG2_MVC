@@ -4,16 +4,10 @@
  */
 package com.acg.t1prog2.Views.Equipamento;
 
-import com.acg.t1prog2.DAO.EquipamentoDAO;
-import com.acg.t1prog2.Exceptions.IdentificadorUnicoException;
-import com.acg.t1prog2.Exceptions.CampoVazioException;
-import com.acg.t1prog2.Models.Equipamento;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class CadastrarEquipamentoView extends javax.swing.JFrame {
-
-    private EquipamentoDAO equipDAO = new EquipamentoDAO();
 
     public CadastrarEquipamentoView() {
         initComponents();
@@ -45,11 +39,6 @@ public class CadastrarEquipamentoView extends javax.swing.JFrame {
 
         btCadastrarEquip.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btCadastrarEquip.setLabel("Cadastrar Equipamento");
-        btCadastrarEquip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarEquipamento(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,28 +87,6 @@ public class CadastrarEquipamentoView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastrarEquipamento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarEquipamento
-        String nome = tfNomeEquip.getText();
-        String codigo = tfCodigoEquip.getText();
-        String marca = tfMarcaEquip.getText();
-
-        Equipamento equip = new Equipamento();      
-        
-        try {
-            equip.setNome(nome);
-            equip.setMarca(marca);
-            equip.setCodigo(codigo);
-            addEquipamento(equip);
-            JOptionPane.showMessageDialog(null, "Equipamento cadastrado com sucesso!");
-            this.limparTela();
-        } catch (CampoVazioException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_cadastrarEquipamento
-
-    private void addEquipamento(Equipamento e) {
-        equipDAO.salvarEquipamento(e);
-    }
 
     public String getNome() {
         return tfNomeEquip.getText();
@@ -137,7 +104,7 @@ public class CadastrarEquipamentoView extends javax.swing.JFrame {
         btCadastrarEquip.addActionListener(acao);
     }
     
-    private void limparTela() {
+    public void limparTela() {
         tfNomeEquip.setText("");
         tfCodigoEquip.setText("");
         tfMarcaEquip.setText("");

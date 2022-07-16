@@ -4,19 +4,15 @@
  */
 package com.acg.t1prog2.Views.Equipamento;
 
-import com.acg.t1prog2.DAO.EquipamentoDAO;
 import com.acg.t1prog2.Models.Equipamento;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class RemoverEquipamentoView extends javax.swing.JFrame {
-
-    private EquipamentoDAO equipDAO = new EquipamentoDAO();
     
     public RemoverEquipamentoView() {
         initComponents();
-        this.popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -35,11 +31,6 @@ public class RemoverEquipamentoView extends javax.swing.JFrame {
 
         btRemoverEquip.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btRemoverEquip.setLabel("Remover Equipamento");
-        btRemoverEquip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removerEquipamento(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,25 +63,22 @@ public class RemoverEquipamentoView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void removerEquipamento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerEquipamento
-        Equipamento tempEquip = (Equipamento) cbEditarEquip.getSelectedItem();
-        
-        equipDAO.removerEquipamento(tempEquip);
-        JOptionPane.showMessageDialog(null, "Equipamento removido com sucesso!");
-        
-        this.cbEditarEquip.removeAllItems();
-        this.popularComboBox();
-        
-    }//GEN-LAST:event_removerEquipamento
-
-    private void popularComboBox() {
-        for(Equipamento equip : equipDAO.recuperarTodosEquipamentos()) {
+    public void popularComboBox(List<Equipamento> equips) {
+        for(Equipamento equip : equips) {
             cbEditarEquip.addItem(equip);
         }
     }
     
+    public void limparComboBox() {
+        cbEditarEquip.removeAllItems();
+    }
+    
     public void adicionarAcaoRemover(ActionListener acao) {
         btRemoverEquip.addActionListener(acao);
+    }
+    
+    public Equipamento getEquipamento() {
+        return (Equipamento) cbEditarEquip.getSelectedItem();
     }
     
     public void exibir() {

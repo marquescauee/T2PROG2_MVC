@@ -128,9 +128,6 @@
         </Property>
         <Property name="label" type="java.lang.String" value="Cadastrar Aluno"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarAluno"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbMensalidade">
       <Properties>

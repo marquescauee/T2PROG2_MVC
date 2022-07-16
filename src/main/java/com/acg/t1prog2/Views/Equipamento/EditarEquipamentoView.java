@@ -4,20 +4,15 @@
  */
 package com.acg.t1prog2.Views.Equipamento;
 
-import com.acg.t1prog2.DAO.EquipamentoDAO;
-import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Models.Equipamento;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class EditarEquipamentoView extends javax.swing.JFrame {
 
-    private EquipamentoDAO equipDAO = new EquipamentoDAO();
-
     public EditarEquipamentoView() {
         initComponents();
-        this.popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -46,11 +41,6 @@ public class EditarEquipamentoView extends javax.swing.JFrame {
 
         btEditarEquip.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btEditarEquip.setLabel("Editar Equipamento");
-        btEditarEquip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarEquipamento(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,11 +52,8 @@ public class EditarEquipamentoView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lbMarcaEquip)
                         .addGap(55, 55, 55))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbEquip)
-                            .addComponent(lbNomeEquip))
-                        .addGap(0, 0, 0)))
+                    .addComponent(lbEquip)
+                    .addComponent(lbNomeEquip))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfMarcaEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfNomeEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -100,35 +87,12 @@ public class EditarEquipamentoView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editarEquipamento(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarEquipamento
-        Equipamento tempEquip = (Equipamento) this.cbEditarEquip.getSelectedItem();
-
-        String nome = tempEquip.getNome();
-        String marca = tempEquip.getMarca();
-
-        if (!this.tfNomeEquip.getText().isBlank()) {
-            nome = tfNomeEquip.getText();
-        }
-
-        if (!this.tfMarcaEquip.getText().isBlank()) {
-            marca = tfMarcaEquip.getText();
-        }
-
-        try {
-            tempEquip.setNome(nome);
-            tempEquip.setMarca(marca);
-
-            JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!");
-            this.cbEditarEquip.removeAllItems();
-            this.popularComboBox();
-            this.limparTela();
-        } catch (CampoVazioException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_editarEquipamento
-
-    private void popularComboBox() {        
-        for (Equipamento equip : equipDAO.recuperarTodosEquipamentos()) {
+    public void limparComboBox() {
+        cbEditarEquip.removeAllItems();
+    }
+    
+    public void popularComboBox(List<Equipamento> equips) {        
+        for (Equipamento equip : equips) {
             cbEditarEquip.addItem(equip);
         }
     }
@@ -149,7 +113,7 @@ public class EditarEquipamentoView extends javax.swing.JFrame {
         btEditarEquip.addActionListener(acao);
     }
     
-    private void limparTela() {
+    public void limparTela() {
         tfNomeEquip.setText("");
         tfMarcaEquip.setText("");
     }

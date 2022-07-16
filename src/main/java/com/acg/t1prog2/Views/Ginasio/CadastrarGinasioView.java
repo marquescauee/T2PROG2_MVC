@@ -6,18 +6,6 @@ package com.acg.t1prog2.Views.Ginasio;
 
 import com.acg.t1prog2.DAO.EsporteDAO;
 import com.acg.t1prog2.DAO.GinasioDAO;
-import com.acg.t1prog2.Exceptions.CampoVazioException;
-import com.acg.t1prog2.Models.Esporte;
-import com.acg.t1prog2.Models.Esportes.Basquete;
-import com.acg.t1prog2.Models.Esportes.Futebol;
-import com.acg.t1prog2.Models.Esportes.Natacao;
-import com.acg.t1prog2.Models.Esportes.Volei;
-import com.acg.t1prog2.Models.Ginasio;
-import com.acg.t1prog2.Models.Mensalidade;
-import com.acg.t1prog2.Models.Mensalidades.Mensal;
-import com.acg.t1prog2.Models.Mensalidades.Semestral;
-import com.acg.t1prog2.Models.Mensalidades.Trimestral;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
@@ -73,11 +61,6 @@ public class CadastrarGinasioView extends javax.swing.JFrame {
 
         btCadastrarGinasio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btCadastrarGinasio.setLabel("Cadastrar Ginásio");
-        btCadastrarGinasio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarGinasio(evt);
-            }
-        });
 
         jpEsportes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -247,111 +230,6 @@ public class CadastrarGinasioView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastrarGinasio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarGinasio
-        String nome = tfNomeGinasio.getText();
-        String endereco = tfEnderecoGinasio.getText();
-
-        Ginasio ginasio = new Ginasio();
-        
-        
-        try {
-            double tamanho = Double.parseDouble(tfTamanhoGinasio.getText());
-            int anoCriacao = Integer.parseInt(tfAnoCriacaoGinasio.getText());
-            ginasio.setNome(nome);
-            ginasio.setAnoCriacao(anoCriacao);
-            ginasio.setEndereco(endereco);
-            ginasio.setTamanho(tamanho);
-
-            verificarSeAlgumMarcado();
-            
-            this.addGinasio(ginasio);
-            this.registrarEsporte(ginasio);
-
-            JOptionPane.showMessageDialog(null, "Ginásio cadastrado com sucesso!");
-            limparTela();
-        } catch (CampoVazioException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Campo vazio.");
-        }
-    }//GEN-LAST:event_cadastrarGinasio
-
-    private void addGinasio(Ginasio ginasio) {
-        ginasioDAO.salvarGinasio(ginasio);
-    }
-
-    private boolean verificarSeAlgumMarcado() throws CampoVazioException {
-        boolean nenhumMarcado = false;
-        
-        if(!this.checkFutebol.isSelected() && !this.checkBasquete.isSelected() && !this.checkNatacao.isSelected() && !this.checkVolei.isSelected()) {
-            nenhumMarcado = true;
-        }
-        
-        if(!this.checkMensal.isSelected() && !this.checkTrimestral.isSelected() && !this.checkSemestral.isSelected() && !this.checkAnual.isSelected()) {
-            nenhumMarcado = true;   
-        }
-        
-        if(nenhumMarcado) {
-            throw new CampoVazioException();
-        }
-        
-        return nenhumMarcado;
-    }
-    
-    private void registrarEsporte(Ginasio ginasio) {
-        if (this.checkFutebol.isSelected()) {
-            Esporte fut = new Futebol(22);
-            ginasio.getListaEsportes().add(fut);
-            esporteDAO.salvarEsporte(fut);
-
-            registrarMensalidade(fut);
-        }
-
-        if (this.checkBasquete.isSelected()) {
-            Esporte basq = new Basquete(10);
-            ginasio.getListaEsportes().add(basq);
-            esporteDAO.salvarEsporte(basq);
-
-            registrarMensalidade(basq);
-        }
-
-        if (this.checkVolei.isSelected()) {
-            Esporte volei = new Volei(12);
-            ginasio.getListaEsportes().add(volei);
-            esporteDAO.salvarEsporte(volei);
-
-            registrarMensalidade(volei);
-        }
-
-        if (this.checkNatacao.isSelected()) {
-            Esporte natacao = new Natacao(8);
-            ginasio.getListaEsportes().add(natacao);
-            esporteDAO.salvarEsporte(natacao);
-
-            registrarMensalidade(natacao);
-        }
-    }
-
-    private void registrarMensalidade(Esporte esporte) {
-        if (this.checkMensal.isSelected()) {
-            Mensalidade mensal = new Mensal(100);
-            esporte.getListaMensalidades().add(mensal);
-        }
-
-        if (this.checkTrimestral.isSelected()) {
-            Mensalidade trimestral = new Trimestral(270);
-            esporte.getListaMensalidades().add(trimestral);
-        }
-
-        if (this.checkSemestral.isSelected()) {
-            Mensalidade semestral = new Semestral(550);
-            esporte.getListaMensalidades().add(semestral);
-        }
-
-        if (this.checkAnual.isSelected()) {
-            Mensalidade anual = new Mensalidade(900);
-            esporte.getListaMensalidades().add(anual);
-        }
-    }
-    
     public void adicionarAcaoBotaoCadastrar(ActionListener acao) {
         this.btCadastrarGinasio.addActionListener(acao);
     }
@@ -404,7 +282,7 @@ public class CadastrarGinasioView extends javax.swing.JFrame {
         return tfEnderecoGinasio.getText();
     }
     
-    private void limparTela() {
+    public void limparTela() {
         tfNomeGinasio.setText("");
         tfAnoCriacaoGinasio.setText("");
         tfTamanhoGinasio.setText("");

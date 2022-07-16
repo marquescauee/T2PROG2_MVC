@@ -119,9 +119,6 @@
         </Property>
         <Property name="label" type="java.lang.String" value="Limpar Tela"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="limparTela"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jpRegras">
       <Properties>
@@ -176,9 +173,6 @@
             </Property>
             <Property name="label" type="java.lang.String" value="Basquete"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exibirRegrasBasquete"/>
-          </Events>
         </Component>
         <Component class="java.awt.Button" name="btRegraFut">
           <Properties>
@@ -187,9 +181,6 @@
             </Property>
             <Property name="label" type="java.lang.String" value="Futebol"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exibirRegrasFut"/>
-          </Events>
         </Component>
         <Component class="java.awt.Button" name="btRegraNatacao">
           <Properties>
@@ -198,9 +189,6 @@
             </Property>
             <Property name="label" type="java.lang.String" value="Nata&#xe7;&#xe3;o"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exibirRegrasNatacao"/>
-          </Events>
         </Component>
         <Component class="java.awt.Button" name="btRegraVolei">
           <Properties>
@@ -209,9 +197,6 @@
             </Property>
             <Property name="label" type="java.lang.String" value="V&#xf4;lei"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exibirRegrasVolei"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -268,9 +253,6 @@
             </Property>
             <Property name="label" type="java.lang.String" value="Nata&#xe7;&#xe3;o"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simularPartidaNatacao"/>
-          </Events>
         </Component>
         <Component class="java.awt.Button" name="btSimulaVolei">
           <Properties>
@@ -279,9 +261,6 @@
             </Property>
             <Property name="label" type="java.lang.String" value="V&#xf4;lei"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simularPartidaVolei"/>
-          </Events>
         </Component>
         <Component class="java.awt.Button" name="btSimulaBasquete">
           <Properties>
@@ -290,9 +269,6 @@
             </Property>
             <Property name="label" type="java.lang.String" value="Basquete"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simularPartidaBasq"/>
-          </Events>
         </Component>
         <Component class="java.awt.Button" name="btSimulaFut">
           <Properties>
@@ -301,9 +277,6 @@
             </Property>
             <Property name="label" type="java.lang.String" value="Futebol"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simularPartidaFut"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

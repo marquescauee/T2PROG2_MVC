@@ -4,17 +4,10 @@
  */
 package com.acg.t1prog2.Views.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
-import com.acg.t1prog2.Models.Pessoa;
-
 public class ListarPessoaView extends javax.swing.JFrame {
 
-    private PessoaDAO pessoaDAO = new PessoaDAO();
-    
     public ListarPessoaView() {
         initComponents();
-        
-        this.listarPessoas();
     }
 
     @SuppressWarnings("unchecked")
@@ -52,10 +45,12 @@ public class ListarPessoaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listarPessoas() {
-        for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            this.taPessoas.append(p + "\n");
-        }
+    public void exibirListagem(String texto) {
+        taPessoas.append(texto);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
     }
     
 

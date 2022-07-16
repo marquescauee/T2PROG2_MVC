@@ -4,18 +4,10 @@
  */
 package com.acg.t1prog2.Views.Turma;
 
-import com.acg.t1prog2.DAO.TurmaDAO;
-import com.acg.t1prog2.Models.Turma;
-import com.acg.t1prog2.Views.App;
-
 public class ListarTurmaView extends javax.swing.JFrame {
 
-    private TurmaDAO turmaDAO = new TurmaDAO();
-    
     public ListarTurmaView() {
         initComponents();
-        
-        this.listarTurmas();
     }
 
     @SuppressWarnings("unchecked")
@@ -53,10 +45,12 @@ public class ListarTurmaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listarTurmas() {
-        for(Turma turma : turmaDAO.recuperarTodasTurmas()) {
-            this.taTurma.append(turma + "\n");
-        }
+    public void exibirListagem(String texto) {
+        taTurma.append(texto);
+    }
+    
+    public void exibir() {
+        this.setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

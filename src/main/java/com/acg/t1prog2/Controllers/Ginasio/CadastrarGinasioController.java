@@ -4,23 +4,147 @@
  */
 package com.acg.t1prog2.Controllers.Ginasio;
 
+import com.acg.t1prog2.DAO.EsporteDAO;
+import com.acg.t1prog2.DAO.GinasioDAO;
+import com.acg.t1prog2.Exceptions.CampoVazioException;
+import com.acg.t1prog2.Models.Esporte;
+import com.acg.t1prog2.Models.Esportes.Basquete;
+import com.acg.t1prog2.Models.Esportes.Futebol;
+import com.acg.t1prog2.Models.Esportes.Natacao;
+import com.acg.t1prog2.Models.Esportes.Volei;
 import com.acg.t1prog2.Models.Ginasio;
+import com.acg.t1prog2.Models.Mensalidade;
+import com.acg.t1prog2.Models.Mensalidades.Mensal;
+import com.acg.t1prog2.Models.Mensalidades.Semestral;
+import com.acg.t1prog2.Models.Mensalidades.Trimestral;
 import com.acg.t1prog2.Views.Ginasio.CadastrarGinasioView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class CadastrarGinasioController {
-    
+
     private Ginasio ginasio;
     private CadastrarGinasioView cgv;
-    
+
     public CadastrarGinasioController(CadastrarGinasioView cgv) {
         this.cgv = cgv;
         inicializarAcaoBotoes();
+        exibirTela();
+    }
+
+    private void inicializarAcaoBotoes() {
+        cgv.adicionarAcaoBotaoCadastrar(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nome = cgv.getNome();
+                String endereco = cgv.getEndereco();
+
+                try {
+                    ginasio = new Ginasio();
+                    
+                    double tamanho = cgv.getArea();
+                    int anoCriacao = cgv.getAnoCriacao();
+                    ginasio.setNome(nome);
+                    ginasio.setAnoCriacao(anoCriacao);
+                    ginasio.setEndereco(endereco);
+                    ginasio.setTamanho(tamanho);
+
+                    verificarSeAlgumMarcado();
+
+                    addGinasio(ginasio);
+                    registrarEsporte(ginasio);
+
+                    cgv.exibirMensagem("Ginásio cadastrado com sucesso!");
+                    cgv.limparTela();
+                } catch (CampoVazioException | NumberFormatException ex) {
+                    cgv.exibirMensagem("Campo vazio.");
+                }  
+            }
+        });  
+    }
+
+    private boolean verificarSeAlgumMarcado() throws CampoVazioException {
+        boolean nenhumMarcado = false;
+
+        if (!cgv.getCheckFutebol() && !cgv.getCheckBasquete() && !cgv.getCheckNatacao() && !cgv.getCheckVolei()) {
+            nenhumMarcado = true;
+        }
+
+        if (!cgv.getCheckMensal() && !cgv.getCheckTrimestral() && !cgv.getCheckSemestral() && !cgv.getCheckAnual()) {
+            nenhumMarcado = true;
+        }
+
+        if (nenhumMarcado) {
+            throw new CampoVazioException();
+        }
+
+        return nenhumMarcado;
     }
     
-    public void inicializarAcaoBotoes() {
+    private void addGinasio(Ginasio ginasio) {
+        GinasioDAO ginasioDAO = new GinasioDAO();
+        ginasioDAO.salvarGinasio(ginasio);
+    }
+    
+    private void registrarEsporte(Ginasio ginasio) {
+        EsporteDAO esporteDAO = new EsporteDAO();
         
+        if (cgv.getCheckFutebol()) {
+            Esporte fut = new Futebol(22);
+            ginasio.getListaEsportes().add(fut);
+            esporteDAO.salvarEsporte(fut);
+
+            registrarMensalidade(fut);
+        }
+
+        if (cgv.getCheckBasquete()) {
+            Esporte basq = new Basquete(10);
+            ginasio.getListaEsportes().add(basq);
+            esporteDAO.salvarEsporte(basq);
+
+            registrarMensalidade(basq);
+        }
+
+        if (cgv.getCheckVolei()) {
+            Esporte volei = new Volei(12);
+            ginasio.getListaEsportes().add(volei);
+            esporteDAO.salvarEsporte(volei);
+
+            registrarMensalidade(volei);
+        }
+
+        if (cgv.getCheckNatacao()) {
+            Esporte natacao = new Natacao(8);
+            ginasio.getListaEsportes().add(natacao);
+            esporteDAO.salvarEsporte(natacao);
+
+            registrarMensalidade(natacao);
+        }
     }
     
+    private void registrarMensalidade(Esporte esporte) {
+        if (cgv.getCheckMensal()) {
+            Mensalidade mensal = new Mensal(100);
+            esporte.getListaMensalidades().add(mensal);
+        }
+
+        if (cgv.getCheckTrimestral()) {
+            Mensalidade trimestral = new Trimestral(270);
+            esporte.getListaMensalidades().add(trimestral);
+        }
+
+        if (cgv.getCheckSemestral()) {
+            Mensalidade semestral = new Semestral(550);
+            esporte.getListaMensalidades().add(semestral);
+        }
+
+        if (cgv.getCheckAnual()) {
+            Mensalidade anual = new Mensalidade(900);
+            esporte.getListaMensalidades().add(anual);
+        }
+    }
+
     public void exibirTela() {
         this.cgv.exibir();
     }

@@ -4,29 +4,16 @@
  */
 package com.acg.t1prog2.Views.Ginasio;
 
-import com.acg.t1prog2.DAO.GinasioDAO;
-import com.acg.t1prog2.DAO.ReservaDAO;
-import com.acg.t1prog2.DAO.TurmaDAO;
-import com.acg.t1prog2.Exceptions.ReservaException;
 import com.acg.t1prog2.Models.Ginasio;
-import com.acg.t1prog2.Models.Reserva;
 import com.acg.t1prog2.Models.Turma;
-import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ReservarGinasioView extends javax.swing.JFrame {
-
-    private GinasioDAO ginasioDAO = new GinasioDAO();
-    private TurmaDAO turmaDAO = new TurmaDAO();
-    private ReservaDAO reservaDAO = new ReservaDAO();
     
     public ReservarGinasioView() {
         initComponents();
-        popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -60,11 +47,6 @@ public class ReservarGinasioView extends javax.swing.JFrame {
 
         btReservar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btReservar.setLabel("Reservar ginásio");
-        btReservar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reservarGinasio(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,61 +100,37 @@ public class ReservarGinasioView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void reservarGinasio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservarGinasio
-         try {
-            Reserva reserva = recuperarReserva();
-            reservaDAO.salvarReserva(reserva);
-            JOptionPane.showMessageDialog(null, "Ginásio reservado com sucesso: " + reserva.toString());
-            limparTela();
-            popularComboBox();
-        } catch (ReservaException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-    }//GEN-LAST:event_reservarGinasio
-
-    public Reserva recuperarReserva() throws ReservaException {
-        LocalDateTime dataHoraRserva = getDataHora();
-        Ginasio ginasio = (Ginasio) cbGinasio.getSelectedItem();
-        Turma turma = (Turma) cbTurma.getSelectedItem();
-        Reserva reserva = Reserva.reservarGinasio(dataHoraRserva, ginasio, turma);
-
-        if (ginasio == null) {
-            throw new ReservaException("Nenhum ginásio selecionado");
-        }
-        
-        if (turma == null) {
-            throw new ReservaException("Nenhuma turma selecionada");
-        }
-
-        return reserva;
-    }
     
-    public LocalDateTime getDataHora() throws ReservaException {
-        String data = tfData.getText();
-        String hora = tfHora.getText();
-        String dataHora = data + ' ' + hora;
-
-        try {
-            DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            LocalDateTime dataHoraRserva = LocalDateTime.parse(dataHora, formatoData);
-            return dataHoraRserva;
-        } catch (DateTimeParseException e) {
-            throw new ReservaException("Data ou hora inválida");
-        }
-    }
-    
-    private void popularComboBox() {
-        for (Ginasio ginasio : ginasioDAO.recuperarTodosGinasios()) {
+    public void popularComboBoxGinasio(List<Ginasio> ginasios) {
+        for (Ginasio ginasio : ginasios) {
             cbGinasio.addItem(ginasio);
         }
-        
-        for(Turma t : turmaDAO.recuperarTodasTurmas()) {
-            cbTurma.addItem(t);
+    }
+    
+    public void popularComboBoxTurma(List<Turma> turmas) {
+        for (Turma turma : turmas) {
+            cbTurma.addItem(turma);
         }
     }
     
     public void adicionarAcaoBotaoReservar(ActionListener acao) {
         this.btReservar.addActionListener(acao);
+    }
+    
+    public String getData() {
+        return tfData.getText();
+    }
+    
+    public String getHora() {
+        return tfHora.getText();
+    }
+    
+    public Ginasio getGinasio() {
+        return (Ginasio) cbGinasio.getSelectedItem();
+    }
+    
+    public Turma getTurma() {
+        return (Turma) cbTurma.getSelectedItem();
     }
     
     public void exibir() {
@@ -182,7 +140,6 @@ public class ReservarGinasioView extends javax.swing.JFrame {
     public void exibirMensagem(String msg) {
         JOptionPane.showMessageDialog(null, msg);
     }
-
     
     public void limparTela() {
         tfData.setText("");

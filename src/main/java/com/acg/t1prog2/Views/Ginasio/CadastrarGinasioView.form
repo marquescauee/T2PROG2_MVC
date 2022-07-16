@@ -148,9 +148,6 @@
         </Property>
         <Property name="label" type="java.lang.String" value="Cadastrar Gin&#xe1;sio"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarGinasio"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jpEsportes">
       <Properties>

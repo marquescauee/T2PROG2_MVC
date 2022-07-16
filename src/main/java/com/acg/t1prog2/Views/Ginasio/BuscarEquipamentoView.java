@@ -9,16 +9,13 @@ import com.acg.t1prog2.Models.Equipamento;
 import com.acg.t1prog2.Models.Ginasio;
 import com.acg.t1prog2.Views.App;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class BuscarEquipamentoView extends javax.swing.JFrame {
 
-    private GinasioDAO ginasioDAO = new GinasioDAO();
-
     public BuscarEquipamentoView() {
         initComponents();
-
-        this.popularComboBox();
     }
 
     @SuppressWarnings("unchecked")
@@ -112,8 +109,12 @@ public class BuscarEquipamentoView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buscarEquipamento
 
-    private void popularComboBox() {
-        for (Ginasio gin : ginasioDAO.recuperarTodosGinasios()) {
+    public void mostrarResultadoBusca(String msg) {
+        taEquipamento.append(msg);
+    }
+    
+    public void popularComboBox(List<Ginasio> ginasios) {
+        for (Ginasio gin : ginasios) {
             cbGinasio.addItem(gin);
         }
     }
