@@ -107,4 +107,21 @@ public class EsporteDAO {
         return esportes;
     }
     
+    public static boolean removerEsporte(Esporte esp) {
+        createTable();
+        Connection connection = Conexao.getConnection();
+        String sql = "DELETE FROM ESPORTE WHERE ID = ?";
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, esp.getId());
+            pstmt.execute();
+            System.out.println("Esporte removido com sucesso!");
+            return true;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }

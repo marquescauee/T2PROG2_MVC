@@ -6,6 +6,7 @@ package com.acg.t1prog2.Controllers.Ginasio;
 
 import com.acg.t1prog2.DAO.EsporteDAO;
 import com.acg.t1prog2.DAO.GinasioDAO;
+import com.acg.t1prog2.DAO.MensalidadeDAO;
 import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Models.Esporte;
 import com.acg.t1prog2.Models.Esportes.Basquete;
@@ -91,57 +92,65 @@ public class CadastrarGinasioController {
         
         if (cgv.getCheckFutebol()) {
             Esporte fut = new Futebol(22);
-            ginasio.getListaEsportes().add(fut);
             EsporteDAO.salvarEsporte(fut);
-
             registrarMensalidade(fut);
+            ginasio.getListaEsportes().add(fut);  
         }
 
         if (cgv.getCheckBasquete()) {
             Esporte basq = new Basquete(10);
-            ginasio.getListaEsportes().add(basq);
             EsporteDAO.salvarEsporte(basq);
-
             registrarMensalidade(basq);
+            ginasio.getListaEsportes().add(basq);
+            
         }
 
         if (cgv.getCheckVolei()) {
             Esporte volei = new Volei(12);
-            ginasio.getListaEsportes().add(volei);
             EsporteDAO.salvarEsporte(volei);
-
             registrarMensalidade(volei);
+            ginasio.getListaEsportes().add(volei);
+            
         }
 
         if (cgv.getCheckNatacao()) {
             Esporte natacao = new Natacao(8);
-            ginasio.getListaEsportes().add(natacao);
             EsporteDAO.salvarEsporte(natacao);
-
             registrarMensalidade(natacao);
+            ginasio.getListaEsportes().add(natacao);
+            
         }
     }
     
     private void registrarMensalidade(Esporte esporte) {
         if (cgv.getCheckMensal()) {
             Mensalidade mensal = new Mensal(100);
-            esporte.addMensalidade(mensal);
+            mensal.setEsporte(esporte);
+            MensalidadeDAO.salvarMensalidade(mensal);
+            esporte.getListaMensalidades().add(mensal);
         }
 
         if (cgv.getCheckTrimestral()) {
             Mensalidade trimestral = new Trimestral(270);
-            esporte.addMensalidade(trimestral);
+            trimestral.setEsporte(esporte);
+            MensalidadeDAO.salvarMensalidade(trimestral);
+            esporte.getListaMensalidades().add(trimestral);
         }
 
         if (cgv.getCheckSemestral()) {
             Mensalidade semestral = new Semestral(550);
-            esporte.addMensalidade(semestral);
+            semestral.setEsporte(esporte);
+            MensalidadeDAO.salvarMensalidade(semestral);
+            esporte.getListaMensalidades().add(semestral);
         }
 
         if (cgv.getCheckAnual()) {
             Mensalidade anual = new Anual(900);
-            esporte.addMensalidade(anual);
+            anual.setEsporte(esporte);
+            MensalidadeDAO.salvarMensalidade(anual);
+            esporte.getListaMensalidades().add(anual);
         }
+
     }
 
     public void exibirTela() {

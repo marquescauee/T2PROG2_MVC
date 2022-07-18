@@ -5,6 +5,7 @@
 package com.acg.t1prog2.Controllers.Turma;
 
 import com.acg.t1prog2.DAO.AlunoDAO;
+import com.acg.t1prog2.DAO.MensalidadeDAO;
 import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Exceptions.CadastroTurmaException;
 import com.acg.t1prog2.Models.Aluno;
@@ -39,6 +40,11 @@ public class CadastrarAlunoTurmaController {
                     Turma tempTurma = catv.getTurma();
                     Aluno tempAluno = catv.getAluno();
                     Mensalidade tempMens = catv.getMensalidade();
+                    
+                    
+                    System.out.println(tempMens.getEsporte());
+                    
+                    
                     Esporte tempEsporteTurma = tempTurma.getEsporte();
 
                     int qtdAlunosTurma = tempTurma.getListaAlunos().size();
@@ -63,6 +69,7 @@ public class CadastrarAlunoTurmaController {
     private boolean verificarMensalidade(Mensalidade mensalidade) throws CadastroTurmaException {
         Turma tempTurma = catv.getTurma();
 
+        
         if (tempTurma.getEsporte().getListaMensalidades().contains(mensalidade)) {
             return tempTurma.getEsporte().getListaMensalidades().contains(mensalidade);
         } else {
@@ -79,9 +86,7 @@ public class CadastrarAlunoTurmaController {
     }
 
     private boolean naoExisteAlunoNaTurma(Turma turma, Aluno aluno) throws CadastroTurmaException {
-        TurmaDAO turmaDAO = new TurmaDAO();
-
-        for (Turma t : turmaDAO.recuperarTodasTurmas()) {
+        for (Turma t : TurmaDAO.recuperarTodasTurmas()) {
             if (t.getEsporte().equals(turma.getEsporte()) && t.getProfessor().equals(turma.getProfessor())) {
                 if (!t.getListaAlunos().contains(aluno)) {
                     return true;
@@ -108,16 +113,17 @@ public class CadastrarAlunoTurmaController {
         for (Turma t : TurmaDAO.recuperarTodasTurmas()) {
             turmas.add(t);
         }
-
-        for (Turma t : TurmaDAO.recuperarTodasTurmas()) {
+     
+        for(Turma t : TurmaDAO.recuperarTodasTurmas()) {;;
             Esporte esporte = t.getEsporte();
-
-            for (Mensalidade m : esporte.getListaMensalidades()) {
+            
+            for(Mensalidade m : esporte.getListaMensalidades()) {
                 mensalidades.add(m);
-            }
-
+            }       
+            
             mensalidades.add(null);
         }
+
 
         catv.popularComboBoxAluno(alunos);
         catv.popularComboBoxTurma(turmas);

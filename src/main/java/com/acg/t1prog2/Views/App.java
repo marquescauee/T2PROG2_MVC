@@ -71,7 +71,6 @@ import java.util.List;
 
 public class App extends javax.swing.JFrame {    
     
-    //Início inicialização do JFrame
     public App() {
         initComponents();   
     }
@@ -433,9 +432,7 @@ public class App extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    //Fim inicialização do JFrame
 
-    //Início de eventos de Abertura de telas do Ginásio
     private void mnCadastrarGinasioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCadastrarGinasioActionPerformed
         CadastrarGinasioController  cgc = new CadastrarGinasioController(new CadastrarGinasioView());
         cgc.exibirTela();
@@ -455,9 +452,8 @@ public class App extends javax.swing.JFrame {
         RemoverGinasioController rgc = new RemoverGinasioController(new RemoverGinasioView());
         rgc.exibirTela();
     }//GEN-LAST:event_mnRemoverGinasioActionPerformed
-    //Fim de eventos de Abertura de telas do Ginásio
 
-    //Início de eventos de Abertura de telas de Equipamentos
+
     private void mnCadastrarEquipamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCadastrarEquipamentosActionPerformed
         CadastrarEquipamentoController cec = new CadastrarEquipamentoController(new CadastrarEquipamentoView());
         
@@ -478,9 +474,7 @@ public class App extends javax.swing.JFrame {
         RemoverEquipamentoController rec = new RemoverEquipamentoController(new RemoverEquipamentoView());
         rec.exibirTela();
     }//GEN-LAST:event_mnRemoverEquipamentosActionPerformed
-    //Fim de eventos de Abertura de telas de Equipamentos
 
-    //Início de eventos de Abertura de telas de Turmas
     private void mnCadastrarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCadastrarTurmaActionPerformed
         CadastrarTurmaController ctc = new CadastrarTurmaController(new CadastrarTurmaView());
         ctc.exibirTela();
@@ -501,7 +495,6 @@ public class App extends javax.swing.JFrame {
         rtc.exibirTela();
     }//GEN-LAST:event_mnRemoverTurmaActionPerformed
 
-    //Início de eventos de Abertura de telas de Pessoas
     private void miCadastrarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarPessoaActionPerformed
         CadastrarPessoaController cpc = new CadastrarPessoaController(new CadastrarPessoaView());
         cpc.exibirTela();
@@ -531,7 +524,7 @@ public class App extends javax.swing.JFrame {
         RemoverPessoaController rpc = new RemoverPessoaController(new RemoverPessoaView());
         rpc.exibirTela();
     }//GEN-LAST:event_miRemoverPessoaActionPerformed
-    //Fim de eventos de Abertura de telas de Turmas
+
 
     private void miCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarAlunoActionPerformed
         CadastrarAlunoTurmaController catc = new CadastrarAlunoTurmaController(new CadastrarAlunoTurmaView());

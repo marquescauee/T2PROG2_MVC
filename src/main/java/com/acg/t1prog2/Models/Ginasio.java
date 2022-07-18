@@ -21,10 +21,11 @@ public class Ginasio {
     private Set<Esporte> listaEsportes;
 
     public Ginasio() {
-        
+        listaEsportes = new HashSet<>();
     }
     
     public Ginasio(String nome, int anoCriacao, double tamanho, String endereco) {
+        listaEsportes = new HashSet<>();
         this.nome = nome;
         this.anoCriacao = anoCriacao;
         this.tamanho = tamanho;

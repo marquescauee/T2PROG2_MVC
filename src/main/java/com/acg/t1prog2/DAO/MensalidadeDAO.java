@@ -5,6 +5,7 @@
 package com.acg.t1prog2.DAO;
 
 import com.acg.t1prog2.Models.Aluno;
+import com.acg.t1prog2.Models.Esporte;
 import com.acg.t1prog2.Models.Mensalidade;
 import com.acg.t1prog2.Models.Mensalidades.Anual;
 import com.acg.t1prog2.Models.Mensalidades.Mensal;
@@ -25,8 +26,10 @@ public class MensalidadeDAO {
         String criarTabela = "CREATE TABLE IF NOT EXISTS MENSALIDADE"
                 + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "valor DOUBLE NOT NULL,"
+                + "esporte_id INTEGER,"
                 + "aluno_id INTEGER,"
-                + "FOREIGN KEY (aluno_id) REFERENCES ALUNO (id))";
+                + "FOREIGN KEY (aluno_id) REFERENCES ALUNO (id),"
+                + "FOREIGN KEY (esporte_id) REFERENCES ESPORTE (id))";
         
         Statement stmt = null;
         
@@ -81,15 +84,22 @@ public class MensalidadeDAO {
                 double valor = resultado.getDouble("valor");
                 
                 Mensalidade m = null;
-                
-                if(resultado instanceof Mensal) {
-                    m = new Mensal(valor);
-                } else if(resultado instanceof Trimestral) {
-                    m = new Trimestral(valor);
-                } else if(resultado instanceof Semestral) {
-                    m = new Semestral(valor);
-                } else if(resultado instanceof Anual) {
-                    m = new Anual(valor);
+                                
+                switch (resultado.getInt("valor")) {
+                    case 100:
+                        m = new Mensal(valor);
+                        break;
+                    case 270:
+                        m = new Trimestral(valor);
+                        break;
+                    case 550:
+                        m = new Semestral(valor);
+                        break;
+                    case 900:
+                        m = new Anual(valor);
+                        break;
+                    default:
+                        break;
                 }
                 
                 m.setId(id);
@@ -100,5 +110,23 @@ public class MensalidadeDAO {
             return null;
         }
         return mensalidades;
+    }
+    
+    public static boolean removerMensalidade(Mensalidade m) {
+        createTable();
+        Connection connection = Conexao.getConnection();
+        String sql = "DELETE FROM MENSALIDADE WHERE ID = ?";
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, m.getId());
+            pstmt.execute();
+            System.out.println("Mensalidade removida com sucesso!");
+            return true;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }

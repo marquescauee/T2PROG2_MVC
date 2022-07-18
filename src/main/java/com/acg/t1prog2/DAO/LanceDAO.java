@@ -66,13 +66,15 @@ public class LanceDAO {
         createTable();
         Connection connection = Conexao.getConnection();
         String sql = "SELECT * FROM LANCE WHERE ID = ?";
-        Statement stmt;
+        PreparedStatement pstmt;
         
         Lance lance = new Lance();
         
         try {
-            stmt = connection.createStatement();
-            ResultSet resultado = stmt.executeQuery(sql);
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, i);
+            pstmt.execute();
+            ResultSet resultado = pstmt.executeQuery();
             
             while(resultado.next()) {
                 int id = resultado.getInt("id");

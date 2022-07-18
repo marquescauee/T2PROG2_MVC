@@ -5,6 +5,7 @@
 package com.acg.t1prog2.Views.Turma;
 
 import com.acg.t1prog2.Models.Esporte;
+import com.acg.t1prog2.Models.Mensalidade;
 import com.acg.t1prog2.Models.Professor;
 import java.awt.event.ActionListener;
 import java.util.List;

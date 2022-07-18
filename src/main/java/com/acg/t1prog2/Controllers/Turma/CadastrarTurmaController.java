@@ -8,6 +8,7 @@ import com.acg.t1prog2.DAO.EsporteDAO;
 import com.acg.t1prog2.DAO.ProfessorDAO;
 import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Esporte;
+import com.acg.t1prog2.Models.Mensalidade;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
 import com.acg.t1prog2.Models.Turma;
@@ -35,7 +36,7 @@ public class CadastrarTurmaController {
             public void actionPerformed(ActionEvent e) {
                 Professor prof = ctv.getProfessor();
                 Esporte esporte = ctv.getEsporte();
-
+                
                 turma = new Turma();
 
                 turma.setProfessor(prof);
@@ -61,9 +62,9 @@ public class CadastrarTurmaController {
         for (Esporte esp : EsporteDAO.recuperarTodosEsportes()) {
             esportes.add(esp);
         }
-
+        
         for (Professor prof : ProfessorDAO.recuperarTodosProfessores()) {
-                professores.add(prof);
+            professores.add(prof);
         }
 
         ctv.popularCbEsporte(esportes);

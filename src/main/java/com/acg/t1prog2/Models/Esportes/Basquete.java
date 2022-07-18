@@ -30,8 +30,6 @@ public class Basquete extends Esporte {
         Lance l2 = new Lance();
         Lance l3 = new Lance();
         
-        LanceDAO lanceDAO = new LanceDAO();
-        
         l1.setEsporte(this);
         l2.setEsporte(this);
         l3.setEsporte(this);
@@ -56,9 +54,9 @@ public class Basquete extends Esporte {
                      + "\nALGUÉM PARA ESSE HOMEM!"
         );
         
-        lanceDAO.salvarLance(l1);
-        lanceDAO.salvarLance(l2);
-        lanceDAO.salvarLance(l3);
+        LanceDAO.salvarLance(l1);
+        LanceDAO.salvarLance(l2);
+        LanceDAO.salvarLance(l3);
         
     }
     

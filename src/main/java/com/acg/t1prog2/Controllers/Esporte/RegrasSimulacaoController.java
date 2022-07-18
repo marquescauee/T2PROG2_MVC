@@ -72,6 +72,8 @@ public class RegrasSimulacaoController {
                     int numeroAleatorio = (int) (Math.random() * lanceDAO.recuperarTodosLances().size());
                     Lance lanceBasq = lanceDAO.recuperarLance(numeroAleatorio);
 
+                    System.out.println(lanceBasq.getLance());
+
                     if (lanceBasq.getEsporte() instanceof Basquete) {
                         rsv.exibirMensagem(lanceBasq.getLance() + "\n----------------------------------------------\n");
                         break;
@@ -106,10 +108,10 @@ public class RegrasSimulacaoController {
 
                 for (int i = 0; i < 100; i++) {
                     int numeroAleatorio = (int) (Math.random() * lanceDAO.recuperarTodosLances().size());
-                    Lance lanceVolei = lanceDAO.recuperarLance(numeroAleatorio);
+                    Lance lanceNatacao = lanceDAO.recuperarLance(numeroAleatorio);
 
-                    if (lanceVolei.getEsporte() instanceof Volei) {
-                        rsv.exibirMensagem(lanceVolei.getLance() + "\n----------------------------------------------\n");
+                    if (lanceNatacao.getEsporte() instanceof Natacao) {
+                        rsv.exibirMensagem(lanceNatacao.getLance() + "\n----------------------------------------------\n");
                         break;
                     }
                 }
@@ -124,10 +126,10 @@ public class RegrasSimulacaoController {
 
                 for (int i = 0; i < 100; i++) {
                     int numeroAleatorio = (int) (Math.random() * lanceDAO.recuperarTodosLances().size());
-                    Lance lanceNatacao = lanceDAO.recuperarLance(numeroAleatorio);
-
-                    if (lanceNatacao.getEsporte() instanceof Natacao) {
-                        rsv.exibirMensagem(lanceNatacao.getLance() + "\n----------------------------------------------\n");
+                    Lance lanceVolei = lanceDAO.recuperarLance(numeroAleatorio);
+                    
+                    if (lanceVolei.getEsporte() instanceof Volei) {
+                        rsv.exibirMensagem(lanceVolei.getLance() + "\n----------------------------------------------\n");
                         break;
                     }
                 }
