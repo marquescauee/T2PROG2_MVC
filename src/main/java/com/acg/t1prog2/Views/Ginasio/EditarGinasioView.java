@@ -136,12 +136,12 @@ public class EditarGinasioView extends javax.swing.JFrame {
         return tfNomeGinasio.getText();
     }
     
-    public int getAnoCriacao() {
-        return Integer.parseInt(tfAnoCriacaoGinasio.getText());
+    public String getAnoCriacao() {
+        return tfAnoCriacaoGinasio.getText();
     }
     
-    public double getArea() {
-        return Double.parseDouble(tfTamanhoGinasio.getText());
+    public String getArea() {
+        return tfTamanhoGinasio.getText();
     }
     
     public String getEndereco() {

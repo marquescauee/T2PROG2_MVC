@@ -5,13 +5,15 @@
 package com.acg.t1prog2.Controllers.Turma;
 
 import com.acg.t1prog2.DAO.EsporteDAO;
-import com.acg.t1prog2.DAO.PessoaDAO;
+import com.acg.t1prog2.DAO.ProfessorDAO;
 import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Esporte;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
 import com.acg.t1prog2.Models.Turma;
 import com.acg.t1prog2.Views.Turma.CadastrarTurmaView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,41 +30,40 @@ public class CadastrarTurmaController {
     }
 
     private void inicializarAcaoBotao() {
-        Professor prof = ctv.getProfessor();
-        Esporte esporte = ctv.getEsporte();
+        ctv.adicionarAcaoBotaoCadastrar(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Professor prof = ctv.getProfessor();
+                Esporte esporte = ctv.getEsporte();
 
-        turma = new Turma();
+                turma = new Turma();
 
-        turma.setProfessor(prof);
-        turma.setEsporte(esporte);
+                turma.setProfessor(prof);
+                turma.setEsporte(esporte);
 
-        adicionarTurma(turma);
+                adicionarTurma(turma);
 
-        ctv.exibirMensagem("Turma cadastrada com sucesso!");
+                ctv.exibirMensagem("Turma cadastrada com sucesso!");
+            }
+        });
     }
 
     private void adicionarTurma(Turma turma) {
-        TurmaDAO turmaDAO = new TurmaDAO();
-        
-        turmaDAO.salvarTurma(turma);
-    }
-    
-    private void popularComboBox() {
 
-        EsporteDAO esporteDAO = new EsporteDAO();
-        PessoaDAO pessoaDAO = new PessoaDAO();
+        TurmaDAO.salvarTurma(turma);
+    }
+
+    private void popularComboBox() {
 
         List<Esporte> esportes = new ArrayList<>();
         List<Professor> professores = new ArrayList<>();
 
-        for (Esporte esp : esporteDAO.recuperarTodosEsportes()) {
+        for (Esporte esp : EsporteDAO.recuperarTodosEsportes()) {
             esportes.add(esp);
         }
 
-        for (Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            if (p instanceof Professor professor) {
-                professores.add(professor);
-            }
+        for (Professor prof : ProfessorDAO.recuperarTodosProfessores()) {
+                professores.add(prof);
         }
 
         ctv.popularCbEsporte(esportes);

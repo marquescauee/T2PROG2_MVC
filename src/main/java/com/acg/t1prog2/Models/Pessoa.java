@@ -4,23 +4,28 @@
  */
 package com.acg.t1prog2.Models;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
+import com.acg.t1prog2.DAO.AlunoDAO;
+import com.acg.t1prog2.DAO.ProfessorDAO;
 import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Exceptions.IdadeException;
 import com.acg.t1prog2.Exceptions.IdentificadorUnicoException;
-import java.util.InputMismatchException;
+import java.util.List;
 
 public abstract class Pessoa {
     
-    private String nome;
-    private String cpf;
-    private int idade;
-    private int id;
-    protected static int geradorID = 0;
-
-
+    protected String nome;
+    protected String cpf;
+    protected int idade;
+    protected int id;
+    
     public Pessoa() {
-        this.id = gerarID();
+        
+    }
+
+    public Pessoa(String nome, String cpf, int idade) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.idade = idade;
     }
 
     public String getNome() {
@@ -40,12 +45,22 @@ public abstract class Pessoa {
     }
 
     public void setCpf(String cpf) throws IdentificadorUnicoException, CampoVazioException, NumberFormatException {
-        PessoaDAO pessoaDAO = new PessoaDAO();
-        for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            if(p.getCpf().equals(cpf)) {
+      
+        List<Professor> professores = ProfessorDAO.recuperarTodosProfessores();
+        
+        List<Aluno> alunos = AlunoDAO.recuperarTodosAlunos();
+        
+        for(Professor prof : professores) {
+            if(prof.getCpf().equals(cpf)) {
                 throw new IdentificadorUnicoException();
             }
         }       
+        
+        for(Aluno aluno : alunos) {
+            if(aluno.getCpf().equals(cpf)) {
+                throw new IdentificadorUnicoException();
+            }
+        }
                
         if(cpf.isBlank()) {
             throw new CampoVazioException();
@@ -73,13 +88,13 @@ public abstract class Pessoa {
         
         this.idade = idade;
     }
-    
-    private static int gerarID() {
-        return ++geradorID;
+
+    public void setId(int id) {
+        this.id = id;
     }
     
-    public int getID() {
-        return Pessoa.geradorID;
+    public int getId() {
+        return id;
     }
 
     @Override

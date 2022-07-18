@@ -6,12 +6,12 @@ package com.acg.t1prog2.Views;
 
 import com.acg.t1prog2.Controllers.Equipamento.CadastrarEquipamentoController;
 import com.acg.t1prog2.Controllers.Equipamento.EditarEquipamentoController;
+import com.acg.t1prog2.Controllers.Equipamento.ListarEquipamentoController;
 import com.acg.t1prog2.Controllers.Equipamento.RemoverEquipamentoController;
 import com.acg.t1prog2.Controllers.Esporte.RegrasSimulacaoController;
-import com.acg.t1prog2.Controllers.Ginasio.AssociarEquipamentoController;
-import com.acg.t1prog2.Controllers.Ginasio.BuscarEquipamentoController;
 import com.acg.t1prog2.Controllers.Ginasio.CadastrarGinasioController;
 import com.acg.t1prog2.Controllers.Ginasio.EditarGinasioController;
+import com.acg.t1prog2.Controllers.Ginasio.ListarGinasioController;
 import com.acg.t1prog2.Controllers.Ginasio.ListarReservasGinasioController;
 import com.acg.t1prog2.Controllers.Ginasio.RemoverGinasioController;
 import com.acg.t1prog2.Controllers.Ginasio.ReservarGinasioController;
@@ -27,14 +27,26 @@ import com.acg.t1prog2.Controllers.Turma.CadastrarTurmaController;
 import com.acg.t1prog2.Controllers.Turma.EditarTurmaController;
 import com.acg.t1prog2.Controllers.Turma.ListarTurmaController;
 import com.acg.t1prog2.Controllers.Turma.RemoverTurmaController;
-import com.acg.t1prog2.Models.Ginasio;
+import com.acg.t1prog2.DAO.AlunoDAO;
+import com.acg.t1prog2.DAO.EquipamentoDAO;
+import com.acg.t1prog2.DAO.EsporteDAO;
+import com.acg.t1prog2.DAO.GinasioDAO;
+import com.acg.t1prog2.DAO.LanceDAO;
+import com.acg.t1prog2.DAO.MensalidadeDAO;
+import com.acg.t1prog2.DAO.ProfessorDAO;
+import com.acg.t1prog2.DAO.ReservaDAO;
+import com.acg.t1prog2.DAO.TurmaDAO;
+import com.acg.t1prog2.Models.Aluno;
+import com.acg.t1prog2.Models.Pessoa;
+import com.acg.t1prog2.Models.Professor;
+import com.acg.t1prog2.Models.Tabela.EquipamentoTableModel;
+import com.acg.t1prog2.Models.Tabela.GinasioTableModel;
+import com.acg.t1prog2.Models.Tabela.PessoaTableModel;
 import com.acg.t1prog2.Views.Equipamento.CadastrarEquipamentoView;
 import com.acg.t1prog2.Views.Equipamento.EditarEquipamentoView;
 import com.acg.t1prog2.Views.Equipamento.ListarEquipamentoView;
 import com.acg.t1prog2.Views.Equipamento.RemoverEquipamentoView;
 import com.acg.t1prog2.Views.Esporte.RegrasSimulacaoView;
-import com.acg.t1prog2.Views.Ginasio.AssociarEquipamentoView;
-import com.acg.t1prog2.Views.Ginasio.BuscarEquipamentoView;
 import com.acg.t1prog2.Views.Ginasio.CadastrarGinasioView;
 import com.acg.t1prog2.Views.Ginasio.EditarGinasioView;
 import com.acg.t1prog2.Views.Ginasio.ListarGinasioView;
@@ -54,6 +66,8 @@ import com.acg.t1prog2.Views.Turma.EditarTurmaView;
 import com.acg.t1prog2.Views.Turma.ListarTurmaView;
 import com.acg.t1prog2.Views.Turma.RemoverTurmaView;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class App extends javax.swing.JFrame {    
     
@@ -77,8 +91,6 @@ public class App extends javax.swing.JFrame {
         mnListarGinasio = new javax.swing.JMenuItem();
         mnEditarGinasio = new javax.swing.JMenuItem();
         mnRemoverGinasio = new javax.swing.JMenuItem();
-        mnAssociarEquipamento = new javax.swing.JMenuItem();
-        mnBuscarEquipamento = new javax.swing.JMenuItem();
         mnReserva = new javax.swing.JMenu();
         miReservarGinasio = new javax.swing.JMenuItem();
         miListarReserva = new javax.swing.JMenuItem();
@@ -202,24 +214,6 @@ public class App extends javax.swing.JFrame {
             }
         });
         mnGinasios.add(mnRemoverGinasio);
-
-        mnAssociarEquipamento.setText("Adicionar Equipamento");
-        mnAssociarEquipamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        mnAssociarEquipamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnAssociarEquipamentoActionPerformed(evt);
-            }
-        });
-        mnGinasios.add(mnAssociarEquipamento);
-
-        mnBuscarEquipamento.setText("Buscar Equipamento");
-        mnBuscarEquipamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        mnBuscarEquipamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnBuscarEquipamentoActionPerformed(evt);
-            }
-        });
-        mnGinasios.add(mnBuscarEquipamento);
 
         mnSelecionarInicial.add(mnGinasios);
 
@@ -448,9 +442,8 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_mnCadastrarGinasioActionPerformed
 
     private void mnListarGinasioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnListarGinasioActionPerformed
-        ListarGinasioView lg = new ListarGinasioView();
-
-        lg.setVisible(true);
+        ListarGinasioController lgc = new ListarGinasioController(new ListarGinasioView(), new GinasioTableModel(GinasioDAO.recuperarTodosGinasios()));
+        lgc.exibir();
     }//GEN-LAST:event_mnListarGinasioActionPerformed
 
     private void mnEditarGinasioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEditarGinasioActionPerformed
@@ -472,9 +465,8 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_mnCadastrarEquipamentosActionPerformed
 
     private void mnListarEquipamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnListarEquipamentosActionPerformed
-        ListarEquipamentoView le = new ListarEquipamentoView();
-
-        le.setVisible(true);
+        ListarEquipamentoController lec = new ListarEquipamentoController(new ListarEquipamentoView(), new EquipamentoTableModel(EquipamentoDAO.recuperarTodosEquipamentos()));
+        lec.exibir();
     }//GEN-LAST:event_mnListarEquipamentosActionPerformed
 
     private void mnEditarEquipamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEditarEquipamentosActionPerformed
@@ -516,7 +508,17 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_miCadastrarPessoaActionPerformed
 
     private void miListarPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miListarPessoasActionPerformed
-        ListarPessoaController lpc = new ListarPessoaController(new ListarPessoaView());
+        List<Pessoa> pessoas = new ArrayList<>();
+
+        for(Aluno a : AlunoDAO.recuperarTodosAlunos()) {
+            pessoas.add(a);
+        }
+        
+        for(Professor p : ProfessorDAO.recuperarTodosProfessores()) {
+            pessoas.add(p);
+        }
+        
+        ListarPessoaController lpc = new ListarPessoaController(new ListarPessoaView(), new PessoaTableModel(pessoas));
         lpc.exibirTela();
     }//GEN-LAST:event_miListarPessoasActionPerformed
 
@@ -530,16 +532,6 @@ public class App extends javax.swing.JFrame {
         rpc.exibirTela();
     }//GEN-LAST:event_miRemoverPessoaActionPerformed
     //Fim de eventos de Abertura de telas de Turmas
-
-    private void mnAssociarEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAssociarEquipamentoActionPerformed
-        AssociarEquipamentoController aec = new AssociarEquipamentoController(new AssociarEquipamentoView());
-        aec.exibirTela();
-    }//GEN-LAST:event_mnAssociarEquipamentoActionPerformed
-
-    private void mnBuscarEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBuscarEquipamentoActionPerformed
-        BuscarEquipamentoController bec = new BuscarEquipamentoController(new BuscarEquipamentoView());
-        bec.exibirTela();
-    }//GEN-LAST:event_mnBuscarEquipamentoActionPerformed
 
     private void miCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarAlunoActionPerformed
         CadastrarAlunoTurmaController catc = new CadastrarAlunoTurmaController(new CadastrarAlunoTurmaView());
@@ -580,6 +572,16 @@ public class App extends javax.swing.JFrame {
     public static void main(String args[]) {
         App app = new App();    
         
+        AlunoDAO.createTable();
+        EquipamentoDAO.createTable();
+        EsporteDAO.createTable();
+        GinasioDAO.createTable();
+        LanceDAO.createTable();
+        MensalidadeDAO.createTable();
+        ProfessorDAO.createTable();
+        ReservaDAO.createTable();
+        TurmaDAO.createTable();
+        
         app.setVisible(true);
     }
     //Fim Método Main
@@ -602,8 +604,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenuItem miRemoverPessoa;
     private javax.swing.JMenuItem miReservarGinasio;
     private javax.swing.JMenuItem miTurmasAluno;
-    private javax.swing.JMenuItem mnAssociarEquipamento;
-    private javax.swing.JMenuItem mnBuscarEquipamento;
     private javax.swing.JMenuItem mnCadastrarEquipamentos;
     private javax.swing.JMenuItem mnCadastrarGinasio;
     private javax.swing.JMenuItem mnCadastrarTurma;

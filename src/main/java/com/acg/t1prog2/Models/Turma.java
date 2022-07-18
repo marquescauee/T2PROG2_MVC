@@ -10,21 +10,13 @@ import java.util.List;
 
 public class Turma {
     
-    private int codigoTurma;
-    
-    private static int geradorCodigoTurma = 0;
-
+    private int id;
     private Esporte esporte;
     private Professor professor;
     private List<Aluno> listaAlunos;
     
     public Turma() {
-        this.codigoTurma = gerarCodigoTurma();
         this.listaAlunos = new ArrayList<>();
-    }
-    
-    public static int gerarCodigoTurma() {
-        return ++geradorCodigoTurma;
     }
 
     public Esporte getEsporte() {
@@ -42,6 +34,15 @@ public class Turma {
     public void setProfessor(Professor professor) {
         this.professor = professor;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+   
     
     public Professor getProfessor() {
         return this.professor;
@@ -80,7 +81,7 @@ public class Turma {
 
     @Override
     public String toString() {
-        return "Código da turma: " + this.codigoTurma + ", " + esporte + "\nProfessor: " 
+        return "Código da turma: " + this.id + ", " + this.esporte + "\nProfessor: " 
                 + professor + "\nAlunos: " + representacaoListaAlunos();
     }
     

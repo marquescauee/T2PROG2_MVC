@@ -47,9 +47,7 @@ public class CadastrarEquipamentoController {
     }
 
     private void addEquipamento(Equipamento e) {
-        EquipamentoDAO equipDAO = new EquipamentoDAO();
-        
-        equipDAO.salvarEquipamento(e);
+        EquipamentoDAO.salvarEquipamento(e);
     }
     
     public void exibirTela() {

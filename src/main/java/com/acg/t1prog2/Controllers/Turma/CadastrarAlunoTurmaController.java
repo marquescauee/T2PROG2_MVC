@@ -4,7 +4,7 @@
  */
 package com.acg.t1prog2.Controllers.Turma;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
+import com.acg.t1prog2.DAO.AlunoDAO;
 import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Exceptions.CadastroTurmaException;
 import com.acg.t1prog2.Models.Aluno;
@@ -80,7 +80,7 @@ public class CadastrarAlunoTurmaController {
 
     private boolean naoExisteAlunoNaTurma(Turma turma, Aluno aluno) throws CadastroTurmaException {
         TurmaDAO turmaDAO = new TurmaDAO();
-        
+
         for (Turma t : turmaDAO.recuperarTodasTurmas()) {
             if (t.getEsporte().equals(turma.getEsporte()) && t.getProfessor().equals(turma.getProfessor())) {
                 if (!t.getListaAlunos().contains(aluno)) {
@@ -96,24 +96,20 @@ public class CadastrarAlunoTurmaController {
     }
 
     private void popularComboBox() {
-        PessoaDAO pessoaDAO = new PessoaDAO();
-        TurmaDAO turmaDAO = new TurmaDAO();
 
         List<Aluno> alunos = new ArrayList<>();
         List<Turma> turmas = new ArrayList<>();
         List<Mensalidade> mensalidades = new ArrayList<>();
 
-        for (Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            if (p instanceof Aluno a) {
-                alunos.add(a);
-            }
+        for (Aluno a : AlunoDAO.recuperarTodosAlunos()) {
+            alunos.add(a);
         }
 
-        for (Turma t : turmaDAO.recuperarTodasTurmas()) {
+        for (Turma t : TurmaDAO.recuperarTodasTurmas()) {
             turmas.add(t);
         }
 
-        for (Turma t : turmaDAO.recuperarTodasTurmas()) {
+        for (Turma t : TurmaDAO.recuperarTodasTurmas()) {
             Esporte esporte = t.getEsporte();
 
             for (Mensalidade m : esporte.getListaMensalidades()) {
@@ -121,11 +117,11 @@ public class CadastrarAlunoTurmaController {
             }
 
             mensalidades.add(null);
-
-            catv.popularComboBoxAluno(alunos);
-            catv.popularComboBoxTurma(turmas);
-            catv.popularComboBoxMensalidade(mensalidades);
         }
+
+        catv.popularComboBoxAluno(alunos);
+        catv.popularComboBoxTurma(turmas);
+        catv.popularComboBoxMensalidade(mensalidades);
     }
 
     public void exibirTela() {

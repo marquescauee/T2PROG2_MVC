@@ -4,8 +4,11 @@
  */
 package com.acg.t1prog2.Controllers.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
+import com.acg.t1prog2.DAO.AlunoDAO;
+import com.acg.t1prog2.DAO.ProfessorDAO;
+import com.acg.t1prog2.Models.Aluno;
 import com.acg.t1prog2.Models.Pessoa;
+import com.acg.t1prog2.Models.Professor;
 import com.acg.t1prog2.Views.Pessoa.RemoverPessoaView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,11 +30,15 @@ public class RemoverPessoaController {
         rpv.adicionarAcaoBotaoRemover(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PessoaDAO pessoaDAO = new PessoaDAO();
                 
                 Pessoa tempPessoa = rpv.getPessoa();
 
-                pessoaDAO.removerPessoa(tempPessoa);
+                if(tempPessoa instanceof Aluno) {
+                    AlunoDAO.removerAluno((Aluno) tempPessoa);
+                } else if(tempPessoa instanceof Professor) {
+                    ProfessorDAO.removerProfessor((Professor) tempPessoa);
+                }
+
                 rpv.exibirMensagem("Pessoa removida com sucesso!");
 
                 rpv.limparComboBox();
@@ -41,12 +48,14 @@ public class RemoverPessoaController {
     }
 
     private void popularComboBox() {
-        PessoaDAO pessoaDAO = new PessoaDAO();
-
         List<Pessoa> pessoas = new ArrayList<>();
 
-        for (Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            pessoas.add(p);
+        for (Aluno a : AlunoDAO.recuperarTodosAlunos()) {
+            pessoas.add(a);
+        }
+        
+        for(Professor prof : ProfessorDAO.recuperarTodosProfessores()) {
+            pessoas.add(prof);
         }
 
         rpv.popularComboBox(pessoas);

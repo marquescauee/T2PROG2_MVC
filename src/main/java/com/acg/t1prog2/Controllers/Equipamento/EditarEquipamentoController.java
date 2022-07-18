@@ -45,6 +45,7 @@ public class EditarEquipamentoController {
                     tempEquip.setNome(nome);
                     tempEquip.setMarca(marca);
 
+                    EquipamentoDAO.atualizarEquipamento(tempEquip);
                     eev.exibirMensagem("Edição realizada com sucesso!");
                     eev.limparComboBox();
                     popularComboBox();
@@ -57,11 +58,9 @@ public class EditarEquipamentoController {
     }
 
     private void popularComboBox() {
-        EquipamentoDAO equipDAO = new EquipamentoDAO();
-
         List<Equipamento> equips = new ArrayList<>();
 
-        for (Equipamento equip : equipDAO.recuperarTodosEquipamentos()) {
+        for (Equipamento equip : EquipamentoDAO.recuperarTodosEquipamentos()) {
             equips.add(equip);
         }
 

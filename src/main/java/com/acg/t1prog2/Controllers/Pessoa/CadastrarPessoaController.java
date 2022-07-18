@@ -4,7 +4,8 @@
  */
 package com.acg.t1prog2.Controllers.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
+import com.acg.t1prog2.DAO.AlunoDAO;
+import com.acg.t1prog2.DAO.ProfessorDAO;
 import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Exceptions.IdadeException;
 import com.acg.t1prog2.Exceptions.IdentificadorUnicoException;
@@ -70,9 +71,11 @@ public class CadastrarPessoaController {
     }
 
     private void adicionarPessoa(Pessoa p) {
-        PessoaDAO pessoaDAO = new PessoaDAO();
-
-        pessoaDAO.salvarPessoa(p);
+        if(p instanceof Aluno a) {
+            AlunoDAO.salvarAluno(a);
+        } else if(p instanceof Professor prof) {
+            ProfessorDAO.salvarProfessor(prof);
+        }
     }
 
     public void exibirTela() {

@@ -4,8 +4,10 @@
  */
 package com.acg.t1prog2.DAO;
 
-import com.acg.t1prog2.Models.Esporte;
-import com.acg.t1prog2.Models.Ginasio;
+import com.acg.t1prog2.Exceptions.CampoVazioException;
+import com.acg.t1prog2.Exceptions.IdadeException;
+import com.acg.t1prog2.Exceptions.IdentificadorUnicoException;
+import com.acg.t1prog2.Models.Aluno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,16 +16,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GinasioDAO {
-    
+public class AlunoDAO {
     public static void createTable() {
         Connection connection = Conexao.getConnection();
-        String criarTabela = "CREATE TABLE IF NOT EXISTS GINASIO"
+        String criarTabela = "CREATE TABLE IF NOT EXISTS ALUNO"
                 + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "nome VARCHAR(255) NOT NULL,"
-                + "anoCriacao INTEGER(4) NOT NULL,"
-                + "area DOUBLE NOT NULL,"
-                + "endereco VARCHAR(255) NOT NULL)";
+                + "cpf INTEGER(11) NOT NULL,"
+                + "idade INTEGER NOT NULL)";
         
         Statement stmt = null;
         
@@ -35,28 +35,27 @@ public class GinasioDAO {
         }
     }
     
-    public static boolean salvarGinasio(Ginasio g) {
+    public static boolean salvarAluno(Aluno a) {
         createTable();
         Connection connection = Conexao.getConnection();
-        String sql = "INSERT INTO GINASIO (nome, anoCriacao, area, endereco) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO ALUNO (nome, cpf, idade) VALUES (?, ?, ?)";
         PreparedStatement pstmt;
         
         try {
             pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, g.getNome());
-            pstmt.setInt(2, g.getAnoCriacao());
-            pstmt.setDouble(3, g.getTamanho());
-            pstmt.setString(4, g.getEndereco());
+            pstmt.setString(1, a.getNome());
+            pstmt.setString(2, a.getCpf());
+            pstmt.setInt(3, a.getIdade());
             
             pstmt.execute();
             
-            System.out.println("Ginasio gravado com sucesso!");
+            System.out.println("Aluno gravado com sucesso!");
             
             final ResultSet resultado = pstmt.getGeneratedKeys();
             
             if(resultado.next()) {
                 int id = resultado.getInt(1);
-                g.setId(id);
+                a.setId(id);
             }
             return true;
         } catch(SQLException e) {
@@ -64,23 +63,22 @@ public class GinasioDAO {
             return false;
         }
     }
-
-    public static boolean atualizarGinasio(Ginasio g) {
+    
+    public static boolean atualizarAluno(Aluno a) {
         createTable();
         Connection connection = Conexao.getConnection();
-        String sql = "UPDATE GINASIO SET nome=?, anoCriacao=?, area=?, endereco=? WHERE ID=?";
+        String sql = "UPDATE ALUNO SET nome=?, cpf=?, idade=? WHERE ID=?";
         PreparedStatement pstmt;
         
         try {
             pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, g.getNome());
-            pstmt.setInt(2, g.getAnoCriacao());
-            pstmt.setDouble(3, g.getTamanho());
-            pstmt.setString(4, g.getEndereco());
-            pstmt.setInt(5, g.getId());
+            pstmt.setString(1, a.getNome());
+            pstmt.setString(2, a.getCpf());
+            pstmt.setInt(3, a.getIdade());
+            pstmt.setInt(4, a.getId());
             pstmt.execute();
             
-            System.out.println("Ginásio atualizado com sucesso!");
+            System.out.println("Aluno atualizado com sucesso!");
             return true;
         } catch(SQLException e) {
             System.out.println(e.getMessage());
@@ -88,11 +86,11 @@ public class GinasioDAO {
         }
     }
     
-    public static List<Ginasio> recuperarTodosGinasios() {
+    public static List<Aluno> recuperarTodosAlunos() {
         createTable();
-        List<Ginasio> ginasios = new ArrayList<>();
+        List<Aluno> alunos = new ArrayList<>();
         Connection connection = Conexao.getConnection();
-        String sql = "SELECT * FROM GINASIO";
+        String sql = "SELECT * FROM ALUNO";
         Statement stmt;
         
         try {
@@ -102,32 +100,31 @@ public class GinasioDAO {
             while (resultado.next()) {
                 int id = resultado.getInt("id");
                 String nome = resultado.getString("nome");
-                int anoCriacao = resultado.getInt("anoCriacao");
-                double area = resultado.getDouble("area");
-                String endereco = resultado.getString("endereco");
+                String cpf = resultado.getString("cpf");
+                int idade = resultado.getInt("idade");
                 
-                Ginasio g = new Ginasio(nome, anoCriacao, area, endereco);
-                g.setId(id);
-                ginasios.add(g);
+                Aluno a = new Aluno(nome, cpf, idade);
+                a.setId(id);
+                alunos.add(a);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         } 
-        return ginasios;
+        return alunos;
     }
     
-    public static boolean removerGinasio(Ginasio g) {
+    public static boolean removerAluno(Aluno a) {
         createTable();
         Connection connection = Conexao.getConnection();
-        String sql = "DELETE FROM GINASIO WHERE ID = ?";
+        String sql = "DELETE FROM ALUNO WHERE ID = ?";
         PreparedStatement pstmt;
         
         try {
             pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, g.getId());
+            pstmt.setInt(1, a.getId());
             pstmt.execute();
-            System.out.println("Ginasio removido com sucesso!");
+            System.out.println("Aluno removido com sucesso!");
             return true;
         } catch(SQLException e) {
             System.out.println(e.getMessage());

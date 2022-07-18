@@ -5,12 +5,23 @@
 package com.acg.t1prog2.Models;
 
 
-public class Mensalidade {
+public abstract class Mensalidade {
+    protected int id;
     protected double valor;
 
     public Mensalidade(double valor) {
         this.valor = valor;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     
     public double getValor() {
         return valor;

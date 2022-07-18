@@ -9,6 +9,7 @@ import java.util.List;
 
 public abstract class Esporte implements Modalidade {
 
+    private int id;
     private int qtdParticipantes;
     private List<Mensalidade> listaMensalidades; 
     
@@ -37,6 +38,16 @@ public abstract class Esporte implements Modalidade {
     public List<Mensalidade> getListaMensalidades() {
         return listaMensalidades;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     
     public int getQtdJogadores() {
         return qtdParticipantes;

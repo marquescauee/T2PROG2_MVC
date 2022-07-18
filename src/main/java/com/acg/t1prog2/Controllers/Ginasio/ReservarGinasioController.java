@@ -81,14 +81,12 @@ public class ReservarGinasioController {
     }
     
     private void popularComboBox() {
-
-        GinasioDAO ginasioDAO = new GinasioDAO();
         TurmaDAO turmaDAO = new TurmaDAO();
 
         List<Ginasio> ginasios = new ArrayList<>();
         List<Turma> turmas = new ArrayList<>();
 
-        for (Ginasio ginasio : ginasioDAO.recuperarTodosGinasios()) {
+        for (Ginasio ginasio : GinasioDAO.recuperarTodosGinasios()) {
             ginasios.add(ginasio);
         }
 

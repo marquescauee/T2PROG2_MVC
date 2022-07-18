@@ -11,11 +11,29 @@ import java.util.Objects;
 
 public class Equipamento implements Comparable<Equipamento> {
     
+    private int id;
     private String nome;
     private String marca;
     private String codigo;
 
+    public Equipamento() {
+        
+    }
+    
+    public Equipamento(String nome, String marca, String codigo) {
+        this.nome = nome;
+        this.marca = marca;
+        this.codigo = codigo;
+    }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getMarca() {
         return marca;
     }

@@ -4,7 +4,7 @@
  */
 package com.acg.t1prog2.Controllers.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
+import com.acg.t1prog2.DAO.ProfessorDAO;
 import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
@@ -51,14 +51,10 @@ public class CalcularSalarioProfessorController {
     }
 
     private void popularComboBox() {
-        PessoaDAO pDAO = new PessoaDAO();
-
         List<Professor> professores = new ArrayList<>();
 
-        for (Pessoa p : pDAO.recuperarTodasPessoas()) {
-            if (p instanceof Professor prof) {
+        for (Professor prof : ProfessorDAO.recuperarTodosProfessores()) {
                 professores.add(prof);
-            }
         }
 
         cspv.popularComboBox(professores);

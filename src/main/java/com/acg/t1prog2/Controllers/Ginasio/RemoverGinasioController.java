@@ -41,17 +41,13 @@ public class RemoverGinasioController {
     }
     
     private void removerGinasio(Ginasio ginasio) {
-        GinasioDAO ginDAO = new GinasioDAO();
-        
-        ginDAO.removerGinasio(ginasio);
+        GinasioDAO.removerGinasio(ginasio);
     }
 
     private void popularComboBox() {
-        GinasioDAO ginasioDAO = new GinasioDAO();
-
         List<Ginasio> ginasios = new ArrayList<>();
 
-        for (Ginasio g : ginasioDAO.recuperarTodosGinasios()) {
+        for (Ginasio g : GinasioDAO.recuperarTodosGinasios()) {
             ginasios.add(g);
         }
 

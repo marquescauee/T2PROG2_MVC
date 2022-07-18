@@ -21,6 +21,11 @@ public class Aluno extends Pessoa {
         this.listaMensalidades = new ArrayList<>();
     }
 
+    public Aluno(String nome, String cpf, int idade) {
+        super(nome, cpf, idade);
+        this.matricula = gerarMatricula();
+    }
+    
     public static String gerarMatricula() {
         String text = ++geradorMatricula + "2022";
 

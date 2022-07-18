@@ -14,6 +14,7 @@ import com.acg.t1prog2.Models.Esportes.Natacao;
 import com.acg.t1prog2.Models.Esportes.Volei;
 import com.acg.t1prog2.Models.Ginasio;
 import com.acg.t1prog2.Models.Mensalidade;
+import com.acg.t1prog2.Models.Mensalidades.Anual;
 import com.acg.t1prog2.Models.Mensalidades.Mensal;
 import com.acg.t1prog2.Models.Mensalidades.Semestral;
 import com.acg.t1prog2.Models.Mensalidades.Trimestral;
@@ -83,17 +84,15 @@ public class CadastrarGinasioController {
     }
     
     private void addGinasio(Ginasio ginasio) {
-        GinasioDAO ginasioDAO = new GinasioDAO();
-        ginasioDAO.salvarGinasio(ginasio);
+        GinasioDAO.salvarGinasio(ginasio);
     }
     
     private void registrarEsporte(Ginasio ginasio) {
-        EsporteDAO esporteDAO = new EsporteDAO();
         
         if (cgv.getCheckFutebol()) {
             Esporte fut = new Futebol(22);
             ginasio.getListaEsportes().add(fut);
-            esporteDAO.salvarEsporte(fut);
+            EsporteDAO.salvarEsporte(fut);
 
             registrarMensalidade(fut);
         }
@@ -101,7 +100,7 @@ public class CadastrarGinasioController {
         if (cgv.getCheckBasquete()) {
             Esporte basq = new Basquete(10);
             ginasio.getListaEsportes().add(basq);
-            esporteDAO.salvarEsporte(basq);
+            EsporteDAO.salvarEsporte(basq);
 
             registrarMensalidade(basq);
         }
@@ -109,7 +108,7 @@ public class CadastrarGinasioController {
         if (cgv.getCheckVolei()) {
             Esporte volei = new Volei(12);
             ginasio.getListaEsportes().add(volei);
-            esporteDAO.salvarEsporte(volei);
+            EsporteDAO.salvarEsporte(volei);
 
             registrarMensalidade(volei);
         }
@@ -117,7 +116,7 @@ public class CadastrarGinasioController {
         if (cgv.getCheckNatacao()) {
             Esporte natacao = new Natacao(8);
             ginasio.getListaEsportes().add(natacao);
-            esporteDAO.salvarEsporte(natacao);
+            EsporteDAO.salvarEsporte(natacao);
 
             registrarMensalidade(natacao);
         }
@@ -126,22 +125,22 @@ public class CadastrarGinasioController {
     private void registrarMensalidade(Esporte esporte) {
         if (cgv.getCheckMensal()) {
             Mensalidade mensal = new Mensal(100);
-            esporte.getListaMensalidades().add(mensal);
+            esporte.addMensalidade(mensal);
         }
 
         if (cgv.getCheckTrimestral()) {
             Mensalidade trimestral = new Trimestral(270);
-            esporte.getListaMensalidades().add(trimestral);
+            esporte.addMensalidade(trimestral);
         }
 
         if (cgv.getCheckSemestral()) {
             Mensalidade semestral = new Semestral(550);
-            esporte.getListaMensalidades().add(semestral);
+            esporte.addMensalidade(semestral);
         }
 
         if (cgv.getCheckAnual()) {
-            Mensalidade anual = new Mensalidade(900);
-            esporte.getListaMensalidades().add(anual);
+            Mensalidade anual = new Anual(900);
+            esporte.addMensalidade(anual);
         }
     }
 

@@ -4,10 +4,13 @@
  */
 package com.acg.t1prog2.Controllers.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
+import com.acg.t1prog2.DAO.AlunoDAO;
+import com.acg.t1prog2.DAO.ProfessorDAO;
 import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Exceptions.IdadeException;
+import com.acg.t1prog2.Models.Aluno;
 import com.acg.t1prog2.Models.Pessoa;
+import com.acg.t1prog2.Models.Professor;
 import com.acg.t1prog2.Views.Pessoa.EditarPessoaView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +48,13 @@ public class EditarPessoaController {
                 try {
                     tempPessoa.setNome(nome);
                     tempPessoa.setIdade(idade);
+                    
+                    if(tempPessoa instanceof Aluno) {
+                        AlunoDAO.atualizarAluno((Aluno) tempPessoa);
+                    } else {
+                        ProfessorDAO.atualizarProfessor((Professor) tempPessoa);
+                    }
+                    
                     epv.exibirMensagem("Edição realizada com sucesso!");
 
                     epv.limparComboBox();
@@ -60,12 +70,14 @@ public class EditarPessoaController {
     }
 
     private void popularComboBox() {
-        PessoaDAO pessoaDAO = new PessoaDAO();
-
         List<Pessoa> pessoas = new ArrayList<>();
 
-        for (Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            pessoas.add(p);
+        for (Aluno a : AlunoDAO.recuperarTodosAlunos()) {
+            pessoas.add(a);
+        }
+        
+        for(Professor prof : ProfessorDAO.recuperarTodosProfessores()) {
+            pessoas.add(prof);
         }
 
         epv.popularComboBox(pessoas);

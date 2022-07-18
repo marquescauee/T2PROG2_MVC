@@ -16,32 +16,20 @@ public class Ginasio {
     private int anoCriacao;
     private double tamanho;
     private String endereco;
+    private int id;
     
     private Set<Esporte> listaEsportes;
-    private Map<String, Equipamento> mapEquipCodigo;
-    
-    public Ginasio() {
-        this.listaEsportes = new HashSet<>();
-        this.mapEquipCodigo = new HashMap<>();
-    }
 
-    public Set<Equipamento> getListaEquipamentos() {
-        Set<Equipamento> listaEquips = new HashSet<>();
+    public Ginasio() {
         
-        for(Map.Entry<String, Equipamento> equip : this.mapEquipCodigo.entrySet()) {
-            listaEquips.add(equip.getValue());
-        }
-        
-        return listaEquips;
     }
     
-    public void addEquipamentoMap(Equipamento equipamento) {
-        this.mapEquipCodigo.put(equipamento.getCodigo(), equipamento);
-    }
-    
-    public Equipamento buscarEquipamentoPorCodigo(String codigo) {
-        return this.mapEquipCodigo.get(codigo);
-    }
+    public Ginasio(String nome, int anoCriacao, double tamanho, String endereco) {
+        this.nome = nome;
+        this.anoCriacao = anoCriacao;
+        this.tamanho = tamanho;
+        this.endereco = endereco;
+    } 
     
     public void addEsporte(Esporte esporte) {
         this.listaEsportes.add(esporte);
@@ -59,6 +47,14 @@ public class Ginasio {
         return nome;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public void setNome(String nome) throws CampoVazioException {
         if(nome.isBlank()) {
             throw new CampoVazioException();

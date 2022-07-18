@@ -6,12 +6,23 @@ package com.acg.t1prog2.Models;
 
 public class Lance {
     
+    private int id;
     private String lance;
     private Esporte esporte;
     
     public Lance(){
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
+    
     public String getLance() {
         return lance;
     }

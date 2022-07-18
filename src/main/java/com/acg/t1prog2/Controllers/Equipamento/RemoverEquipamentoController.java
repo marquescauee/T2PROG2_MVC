@@ -39,16 +39,18 @@ public class RemoverEquipamentoController {
     }
     
     private void removerEquipamento(Equipamento equipamento) {
-        EquipamentoDAO equipDAO = new EquipamentoDAO();
         
-        equipDAO.removerEquipamento(equipamento);
+        EquipamentoDAO.removerEquipamento(equipamento);
     }
 
     private void popularComboBox() {
-        EquipamentoDAO equipDAO = new EquipamentoDAO();
 
         List<Equipamento> equipamentos = new ArrayList<>();
 
+        for(Equipamento e : EquipamentoDAO.recuperarTodosEquipamentos()) {
+            equipamentos.add(e);
+        }
+        
         rev.popularComboBox(equipamentos);
     }
 

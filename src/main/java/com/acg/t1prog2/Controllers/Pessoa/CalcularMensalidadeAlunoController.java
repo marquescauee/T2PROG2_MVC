@@ -4,7 +4,7 @@
  */
 package com.acg.t1prog2.Controllers.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
+import com.acg.t1prog2.DAO.AlunoDAO;
 import com.acg.t1prog2.Models.Aluno;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Views.Pessoa.CalcularMensalidadeAlunoView;
@@ -38,14 +38,10 @@ public class CalcularMensalidadeAlunoController {
     }
 
     private void popularComboBox() {
-        PessoaDAO pDAO = new PessoaDAO();
-
         List<Aluno> alunos = new ArrayList<>();
 
-        for (Pessoa p : pDAO.recuperarTodasPessoas()) {
-            if (p instanceof Aluno a) {
+        for (Aluno a : AlunoDAO.recuperarTodosAlunos()) {
                 alunos.add(a);
-            }
         }
 
         cmav.popularComboBox(alunos);

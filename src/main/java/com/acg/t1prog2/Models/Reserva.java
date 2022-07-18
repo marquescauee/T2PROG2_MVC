@@ -11,10 +11,15 @@ import java.time.format.DateTimeFormatter;
 
 public class Reserva {
     
+    private int id;
     private LocalDateTime dataHora;
     private Ginasio ginasio;
     private Turma turma;
 
+    public Reserva() {
+        
+    }
+    
     private Reserva(LocalDateTime dataHora, Ginasio ginasio, Turma turma) throws ReservaException {
         this.dataHora = dataHora;
         this.ginasio = ginasio;
@@ -47,6 +52,16 @@ public class Reserva {
     public LocalDateTime getDataHora() {
         return dataHora;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;

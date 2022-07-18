@@ -41,11 +41,11 @@ public class EditarGinasioController {
                 }
 
                 if (!String.valueOf(egv.getAnoCriacao()).isBlank()) {
-                    anoCriacao = egv.getAnoCriacao();
+                    anoCriacao = Integer.parseInt(egv.getAnoCriacao());
                 }
 
                 if (!String.valueOf(egv.getArea()).isBlank()) {
-                    tamanho = egv.getArea();
+                    tamanho = Double.parseDouble(egv.getArea());
                 }
 
                 if (!egv.getEndereco().isBlank()) {
@@ -58,6 +58,7 @@ public class EditarGinasioController {
                     tempGinasio.setEndereco(endereco);
                     tempGinasio.setTamanho(tamanho);
 
+                    GinasioDAO.atualizarGinasio(tempGinasio);
                     egv.exibirMensagem("Edição realizada com sucesso!");
 
                     egv.limparComboBox();
@@ -73,11 +74,9 @@ public class EditarGinasioController {
     }
 
     private void popularComboBox() {
-        GinasioDAO ginasioDAO = new GinasioDAO();
-
         List<Ginasio> ginasios = new ArrayList<>();
 
-        for (Ginasio g : ginasioDAO.recuperarTodosGinasios()) {
+        for (Ginasio g : GinasioDAO.recuperarTodosGinasios()) {
             ginasios.add(g);
         }
 

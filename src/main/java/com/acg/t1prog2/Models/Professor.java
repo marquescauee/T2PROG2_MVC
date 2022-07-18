@@ -13,6 +13,11 @@ public class Professor extends Pessoa {
         this.valorAula = 200;
     }
     
+    public Professor(String nome, String cpf, int idade) {
+        super(nome, cpf, idade);
+        this.valorAula = 200;
+    }
+    
     public double getHoraAula() {
         return valorAula;
     }

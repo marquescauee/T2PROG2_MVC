@@ -4,30 +4,48 @@
  */
 package com.acg.t1prog2.Controllers.Pessoa;
 
-import com.acg.t1prog2.DAO.PessoaDAO;
+import com.acg.t1prog2.DAO.AlunoDAO;
+import com.acg.t1prog2.DAO.ProfessorDAO;
+import com.acg.t1prog2.Models.Aluno;
 import com.acg.t1prog2.Models.Pessoa;
+import com.acg.t1prog2.Models.Professor;
+import com.acg.t1prog2.Models.Tabela.PessoaTableModel;
 import com.acg.t1prog2.Views.Pessoa.ListarPessoaView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListarPessoaController {
     
     private ListarPessoaView lpv;
+    private PessoaTableModel ptm;
     
-    public ListarPessoaController(ListarPessoaView lpv) {
+    public ListarPessoaController(ListarPessoaView lpv, PessoaTableModel ptm) {
         this.lpv = lpv;
-        exibirTela();
-        listarPessoas();
+        this.ptm = ptm;
+        setTableModel();
+        inicializarTelaListarDados();
     }
     
-    private void listarPessoas() {
-        PessoaDAO pessoaDAO = new PessoaDAO();
+    private void setTableModel(){
+        lpv.setTableModel(this.ptm);
+    }
+    
+    private void inicializarTelaListarDados() {
+        List<Pessoa> pessoas = new ArrayList<>();
         
-        String texto = "";
-        
-        for(Pessoa p : pessoaDAO.recuperarTodasPessoas()) {
-            texto += p.toString() + "\n";
+        for(Aluno a : AlunoDAO.recuperarTodosAlunos()) {
+            pessoas.add(a);
         }
         
-        lpv.exibirListagem(texto);
+        for(Professor p : ProfessorDAO.recuperarTodosProfessores()) {
+            pessoas.add(p);
+        }
+        
+        ptm = new PessoaTableModel(pessoas);
+    }
+    
+    public void atualizarDados(){
+        ptm.fireTableDataChanged();
     }
     
     public void exibirTela() {

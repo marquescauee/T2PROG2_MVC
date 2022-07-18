@@ -39,17 +39,13 @@ public class RemoverTurmaController {
     }
 
     private void removerTurma(Turma turma) {
-        TurmaDAO turmaDAO = new TurmaDAO();
-        
-        turmaDAO.removerTurma(turma);
+        TurmaDAO.removerTurma(turma);
     }
     
     private void popularComboBox() {
-        TurmaDAO turmaDAO = new TurmaDAO();
-
         List<Turma> turmas = new ArrayList<>();
 
-        for (Turma turma : turmaDAO.recuperarTodasTurmas()) {
+        for (Turma turma : TurmaDAO.recuperarTodasTurmas()) {
             turmas.add(turma);
         }
 

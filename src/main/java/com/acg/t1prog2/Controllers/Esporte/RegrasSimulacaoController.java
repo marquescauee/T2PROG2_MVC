@@ -37,28 +37,28 @@ public class RegrasSimulacaoController {
         rsv.adicionarAcaoBotaoRegrasBasquete(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rsv.exibirMensagem(Basquete.mostrarRegras() + "\n----------------------------------------------\n");
+                rsv.exibirRegrasBasquete(Basquete.mostrarRegras() + "\n----------------------------------------------\n");
             }
         });
 
         rsv.adicionarAcaoBotaoRegrasFutebol(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rsv.exibirMensagem(Futebol.mostrarRegras() + "\n----------------------------------------------\n");
+                rsv.exibirRegrasFut(Futebol.mostrarRegras() + "\n----------------------------------------------\n");
             }
         });
 
         rsv.adicionarAcaoBotaoRegrasVolei(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rsv.exibirMensagem(Volei.mostrarRegras() + "\n----------------------------------------------\n");
+                rsv.exibirRegrasVolei(Volei.mostrarRegras() + "\n----------------------------------------------\n");
             }
         });
 
         rsv.adicionarAcaoBotaoRegrasNatacao(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rsv.exibirMensagem(Natacao.mostrarRegras() + "\n----------------------------------------------\n");
+                rsv.exibirRegrasNatacao(Natacao.mostrarRegras() + "\n----------------------------------------------\n");
             }
         });
 

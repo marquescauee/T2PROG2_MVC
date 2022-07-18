@@ -4,67 +4,75 @@
  */
 package com.acg.t1prog2.Views.Equipamento;
 
-import com.acg.t1prog2.DAO.EquipamentoDAO;
-import com.acg.t1prog2.Models.Equipamento;
-import java.util.Collections;
+import com.acg.t1prog2.Models.Tabela.EquipamentoTableModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 
 public class ListarEquipamentoView extends javax.swing.JFrame {
-
-    private EquipamentoDAO equipDAO = new EquipamentoDAO();
     
     public ListarEquipamentoView() {
         initComponents();
-        
-        this.listarEquipamentos();
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taListarEquipamento = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Equipamento");
 
-        taListarEquipamento.setColumns(20);
-        taListarEquipamento.setRows(5);
-        jScrollPane1.setViewportView(taListarEquipamento);
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setTableModel(EquipamentoTableModel etm){
+        jTable.setModel(etm);
+    }
     
-    private void listarEquipamentos() {        
-        Collections.sort(equipDAO.recuperarTodosEquipamentos());
-        
-        for(Equipamento equip : equipDAO.recuperarTodosEquipamentos()) {
-            this.taListarEquipamento.append(equip + "\n");
-        }
+    public void exibirMensagem(String msg){
+        JOptionPane.showMessageDialog(null, msg);
+    }
+    
+    public void exibirTela(){
+        setVisible(true);
     }
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea taListarEquipamento;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 }
