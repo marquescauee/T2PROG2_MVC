@@ -5,9 +5,7 @@
 package com.acg.t1prog2.Models;
 
 import com.acg.t1prog2.Exceptions.CampoVazioException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Ginasio {
