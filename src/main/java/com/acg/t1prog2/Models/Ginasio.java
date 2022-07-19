@@ -5,7 +5,9 @@
 package com.acg.t1prog2.Models;
 
 import com.acg.t1prog2.Exceptions.CampoVazioException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Ginasio {
@@ -17,13 +19,17 @@ public class Ginasio {
     private int id;
     
     private Set<Esporte> listaEsportes;
+    private List<Equipamento> equipamentos;
+    
 
     public Ginasio() {
         listaEsportes = new HashSet<>();
+        equipamentos = new ArrayList<>();
     }
     
     public Ginasio(String nome, int anoCriacao, double tamanho, String endereco) {
         listaEsportes = new HashSet<>();
+        equipamentos = new ArrayList<>();
         this.nome = nome;
         this.anoCriacao = anoCriacao;
         this.tamanho = tamanho;
@@ -37,10 +43,16 @@ public class Ginasio {
     public void removeEsporte(Esporte esporte) {
         this.listaEsportes.remove(esporte);
     }
-    
+
     public Set<Esporte> getListaEsportes() {
         return listaEsportes;
     }
+
+    public List<Equipamento> getListaEquipamentos() {
+        return equipamentos;
+    }
+    
+    
     
     public String getNome() {
         return nome;

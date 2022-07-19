@@ -9,6 +9,8 @@ import com.acg.t1prog2.Controllers.Equipamento.EditarEquipamentoController;
 import com.acg.t1prog2.Controllers.Equipamento.ListarEquipamentoController;
 import com.acg.t1prog2.Controllers.Equipamento.RemoverEquipamentoController;
 import com.acg.t1prog2.Controllers.Esporte.RegrasSimulacaoController;
+import com.acg.t1prog2.Controllers.Ginasio.AssociarEquipamentoController;
+import com.acg.t1prog2.Controllers.Ginasio.BuscarEquipamentoController;
 import com.acg.t1prog2.Controllers.Ginasio.CadastrarGinasioController;
 import com.acg.t1prog2.Controllers.Ginasio.EditarGinasioController;
 import com.acg.t1prog2.Controllers.Ginasio.ListarGinasioController;
@@ -47,6 +49,8 @@ import com.acg.t1prog2.Views.Equipamento.EditarEquipamentoView;
 import com.acg.t1prog2.Views.Equipamento.ListarEquipamentoView;
 import com.acg.t1prog2.Views.Equipamento.RemoverEquipamentoView;
 import com.acg.t1prog2.Views.Esporte.RegrasSimulacaoView;
+import com.acg.t1prog2.Views.Ginasio.AssociarEquipamentoView;
+import com.acg.t1prog2.Views.Ginasio.BuscarEquipamentoView;
 import com.acg.t1prog2.Views.Ginasio.CadastrarGinasioView;
 import com.acg.t1prog2.Views.Ginasio.EditarGinasioView;
 import com.acg.t1prog2.Views.Ginasio.ListarGinasioView;
@@ -90,6 +94,8 @@ public class App extends javax.swing.JFrame {
         mnListarGinasio = new javax.swing.JMenuItem();
         mnEditarGinasio = new javax.swing.JMenuItem();
         mnRemoverGinasio = new javax.swing.JMenuItem();
+        mnAssociarEquipamento = new javax.swing.JMenuItem();
+        mnBuscarEquipamento = new javax.swing.JMenuItem();
         mnReserva = new javax.swing.JMenu();
         miReservarGinasio = new javax.swing.JMenuItem();
         miListarReserva = new javax.swing.JMenuItem();
@@ -213,6 +219,22 @@ public class App extends javax.swing.JFrame {
             }
         });
         mnGinasios.add(mnRemoverGinasio);
+
+        mnAssociarEquipamento.setText("Associar Equipamento");
+        mnAssociarEquipamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnAssociarEquipamentoActionPerformed(evt);
+            }
+        });
+        mnGinasios.add(mnAssociarEquipamento);
+
+        mnBuscarEquipamento.setText("Buscar Equipamento");
+        mnBuscarEquipamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBuscarEquipamentoActionPerformed(evt);
+            }
+        });
+        mnGinasios.add(mnBuscarEquipamento);
 
         mnSelecionarInicial.add(mnGinasios);
 
@@ -560,6 +582,18 @@ public class App extends javax.swing.JFrame {
         RegrasSimulacaoController rsc = new RegrasSimulacaoController(new RegrasSimulacaoView());
         rsc.exibirTela();
     }//GEN-LAST:event_mostrarRegrasSimulacao
+
+    private void mnAssociarEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAssociarEquipamentoActionPerformed
+        AssociarEquipamentoController aec = new AssociarEquipamentoController(new AssociarEquipamentoView());
+        
+        aec.exibirTela();
+    }//GEN-LAST:event_mnAssociarEquipamentoActionPerformed
+
+    private void mnBuscarEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBuscarEquipamentoActionPerformed
+        BuscarEquipamentoController bec = new BuscarEquipamentoController(new BuscarEquipamentoView());
+        
+        bec.exibirTela();
+    }//GEN-LAST:event_mnBuscarEquipamentoActionPerformed
  
     //Início Método Main
     public static void main(String args[]) {
@@ -597,6 +631,8 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenuItem miRemoverPessoa;
     private javax.swing.JMenuItem miReservarGinasio;
     private javax.swing.JMenuItem miTurmasAluno;
+    private javax.swing.JMenuItem mnAssociarEquipamento;
+    private javax.swing.JMenuItem mnBuscarEquipamento;
     private javax.swing.JMenuItem mnCadastrarEquipamentos;
     private javax.swing.JMenuItem mnCadastrarGinasio;
     private javax.swing.JMenuItem mnCadastrarTurma;

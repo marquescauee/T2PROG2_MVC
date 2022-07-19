@@ -114,7 +114,7 @@ public class CadastrarAlunoTurmaController {
             turmas.add(t);
         }
      
-        for(Turma t : TurmaDAO.recuperarTodasTurmas()) {;;
+        for(Turma t : TurmaDAO.recuperarTodasTurmas()) {
             Esporte esporte = t.getEsporte();
             
             for(Mensalidade m : esporte.getListaMensalidades()) {
@@ -123,7 +123,6 @@ public class CadastrarAlunoTurmaController {
             
             mensalidades.add(null);
         }
-
 
         catv.popularComboBoxAluno(alunos);
         catv.popularComboBoxTurma(turmas);

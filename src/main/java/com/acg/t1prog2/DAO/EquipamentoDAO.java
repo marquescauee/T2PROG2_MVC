@@ -6,6 +6,7 @@ package com.acg.t1prog2.DAO;
 
 import com.acg.t1prog2.Exceptions.CampoVazioException;
 import com.acg.t1prog2.Models.Equipamento;
+import com.acg.t1prog2.Models.Ginasio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -85,6 +86,57 @@ public class EquipamentoDAO {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+    
+    public static boolean associarGinasio(Equipamento equipamento, Ginasio ginasio) {
+        createTable();
+        Connection connection = Conexao.getConnection();
+        String sql = "UPDATE EQUIPAMENTO SET ginasio_id=? WHERE ID=?";
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, ginasio.getId());
+            pstmt.setInt(2, equipamento.getId());
+            pstmt.execute();
+            
+            System.out.println("Esporte atualizado com sucesso!");
+            return true;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public static Equipamento recuperarEquipamento(String codigo) {
+        createTable();
+        Equipamento equipamento;
+        Connection connection = Conexao.getConnection();
+        String sql = "SELECT * FROM EQUIPAMENTO WHERE codigo =?";
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, codigo);
+            pstmt.execute();
+            ResultSet resultado = pstmt.executeQuery();
+
+            while (resultado.next()) {
+                int id = resultado.getInt("id");
+                String nome = resultado.getString("nome");
+                String marca = resultado.getString("marca");
+                String codigoEquip = resultado.getString("codigo");
+                
+                equipamento = new Equipamento(nome, marca, codigoEquip);
+                equipamento.setId(id);
+                return equipamento;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+        return null;
     }
     
     public static List<Equipamento> recuperarTodosEquipamentos() {

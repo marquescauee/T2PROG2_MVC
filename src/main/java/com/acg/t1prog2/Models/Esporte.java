@@ -80,7 +80,9 @@ public abstract class Esporte implements Modalidade {
             return false;
         }
         final Esporte other = (Esporte) obj;
-        return this.codigoEsporte == other.codigoEsporte;
+        return this.id == other.id;
     }
     
+    
+
 }
