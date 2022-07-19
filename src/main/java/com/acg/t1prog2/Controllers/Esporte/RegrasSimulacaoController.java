@@ -14,6 +14,7 @@ import com.acg.t1prog2.Models.Lance;
 import com.acg.t1prog2.Views.Esporte.RegrasSimulacaoView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class RegrasSimulacaoController {
 
@@ -70,14 +71,15 @@ public class RegrasSimulacaoController {
 
                 for (int i = 0; i < 100; i++) {
                     int numeroAleatorio = (int) (Math.random() * lanceDAO.recuperarTodosLances().size());
-                    Lance lanceBasq = lanceDAO.recuperarLance(numeroAleatorio);
+                    List<Lance> lances = lanceDAO.recuperarTodosLances();
 
-                    System.out.println(lanceBasq.getLance());
-
-                    if (lanceBasq.getEsporte() instanceof Basquete) {
-                        rsv.exibirMensagem(lanceBasq.getLance() + "\n----------------------------------------------\n");
+                    for(Lance l : lances) {
+                        if (l.getEsporte() instanceof Basquete) {
+                        rsv.exibirMensagem(l.getLance() + "\n----------------------------------------------\n");
                         break;
+                        }
                     }
+                    break;
                 }
             }
         });

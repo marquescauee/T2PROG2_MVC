@@ -39,11 +39,7 @@ public class CadastrarAlunoTurmaController {
                 try {
                     Turma tempTurma = catv.getTurma();
                     Aluno tempAluno = catv.getAluno();
-                    Mensalidade tempMens = catv.getMensalidade();
-                    
-                    
-                    System.out.println(tempMens.getEsporte());
-                    
+                    Mensalidade tempMens = catv.getMensalidade();                    
                     
                     Esporte tempEsporteTurma = tempTurma.getEsporte();
 
@@ -51,30 +47,28 @@ public class CadastrarAlunoTurmaController {
 
                     verificarMensalidade(tempMens);
                     verificaQtdJogadoresTurma(qtdAlunosTurma, tempEsporteTurma);
-                    naoExisteAlunoNaTurma(tempTurma, tempAluno);
 
-                    salvarAlunoNaTurma(tempTurma, tempAluno);
-                    tempAluno.getListaMensalidades().add(tempMens);
+                    salvarAlunoNaTurma(tempTurma, tempAluno, tempMens);
                     catv.exibirMensagem("Aluno cadastrado na turma com sucesso!");
 
                 } catch (CadastroTurmaException ex) {
                     catv.exibirMensagem(ex.getMessage());
-                } catch (NullPointerException ex) {
-                    catv.exibirMensagem("Algo não foi selecionado. Tente novamente.");
-                }
+                } 
             }
         });
     }
 
     private boolean verificarMensalidade(Mensalidade mensalidade) throws CadastroTurmaException {
         Turma tempTurma = catv.getTurma();
+        Esporte esporteTurma = tempTurma.getEsporte();
+        Mensalidade mensalidadesEsporte = MensalidadeDAO.recuperarMensalidadeEsporte(mensalidade.getValor(), esporteTurma);
+        
+        if(mensalidadesEsporte.getId() == mensalidade.getId()) {
+            return true;
+        }          
 
         
-        if (tempTurma.getEsporte().getListaMensalidades().contains(mensalidade)) {
-            return tempTurma.getEsporte().getListaMensalidades().contains(mensalidade);
-        } else {
-            throw new CadastroTurmaException("A mensalidade selecionada não está presente para a turma selecionada.");
-        }
+        throw new CadastroTurmaException("A mensalidade selecionada não está presente para a turma selecionada.");
     }
 
     private boolean verificaQtdJogadoresTurma(int qtdAlunosTurma, Esporte esporte) throws CadastroTurmaException {
@@ -85,18 +79,15 @@ public class CadastrarAlunoTurmaController {
         }
     }
 
-    private boolean naoExisteAlunoNaTurma(Turma turma, Aluno aluno) throws CadastroTurmaException {
-        for (Turma t : TurmaDAO.recuperarTodasTurmas()) {
-            if (t.getEsporte().equals(turma.getEsporte()) && t.getProfessor().equals(turma.getProfessor())) {
-                if (!t.getListaAlunos().contains(aluno)) {
-                    return true;
-                }
-            }
-        }
-        throw new CadastroTurmaException("O aluno já está cadastrado nessa turma.");
-    }
+    private void salvarAlunoNaTurma(Turma t, Aluno a, Mensalidade mensalidade) {
+        Esporte esporteTurma = t.getEsporte();
+        Mensalidade mensalidadesEsporte = MensalidadeDAO.recuperarMensalidadeEsporte(mensalidade.getValor(), esporteTurma);
+        
+        if(mensalidadesEsporte.getId() == mensalidade.getId()) {
+            MensalidadeDAO.associarMensalidadeAluno(mensalidade, a);
+        }          
 
-    private void salvarAlunoNaTurma(Turma t, Aluno a) {
+        
         t.addAluno(a);
     }
 
@@ -114,14 +105,8 @@ public class CadastrarAlunoTurmaController {
             turmas.add(t);
         }
      
-        for(Turma t : TurmaDAO.recuperarTodasTurmas()) {
-            Esporte esporte = t.getEsporte();
-            
-            for(Mensalidade m : esporte.getListaMensalidades()) {
-                mensalidades.add(m);
-            }       
-            
-            mensalidades.add(null);
+        for(Mensalidade m : MensalidadeDAO.recuperarTodasMensalidades()) {
+            mensalidades.add(m);
         }
 
         catv.popularComboBoxAluno(alunos);

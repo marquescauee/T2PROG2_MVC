@@ -127,7 +127,16 @@ public class EquipamentoDAO {
                 String marca = resultado.getString("marca");
                 String codigoEquip = resultado.getString("codigo");
                 
-                equipamento = new Equipamento(nome, marca, codigoEquip);
+                Ginasio ginasio = null;
+                int ginasio_id = resultado.getInt("ginasio_id");
+                
+                for(Ginasio g : GinasioDAO.recuperarTodosGinasios()) {
+                    if(g.getId() == ginasio_id) {
+                        ginasio = g;
+                    }
+                }
+                
+                equipamento = new Equipamento(nome, marca, codigoEquip, ginasio);
                 equipamento.setId(id);
                 return equipamento;
             }

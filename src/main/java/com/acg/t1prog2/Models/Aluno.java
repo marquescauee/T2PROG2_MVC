@@ -4,6 +4,7 @@
  */
 package com.acg.t1prog2.Models;
 
+import com.acg.t1prog2.DAO.MensalidadeDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,14 +39,14 @@ public class Aluno extends Pessoa {
 
     public List<Mensalidade> getListaMensalidades() {
         return listaMensalidades;
-    }
-    
-    
+    }  
 
     public double calcularMensalidade() {
         int mensalidade = 0;
 
-        for (Mensalidade mens : this.listaMensalidades) {
+        List<Mensalidade> mensalidadesAluno = MensalidadeDAO.recuperarMensalidadesAluno(this);
+        
+        for (Mensalidade mens : mensalidadesAluno) {
             mensalidade += mens.getValor();
         }
 

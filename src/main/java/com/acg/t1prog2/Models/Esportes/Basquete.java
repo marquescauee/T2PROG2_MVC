@@ -9,7 +9,7 @@ import com.acg.t1prog2.Models.Esporte;
 import com.acg.t1prog2.Models.Lance;
 
 public class Basquete extends Esporte {
-    
+
     public Basquete(int qtdParticipantes) {
         super(qtdParticipantes);
     }
@@ -23,50 +23,52 @@ public class Basquete extends Esporte {
                 + "\n2 infrações: o jogador só joga quando uma cesta for convertida em ponto"
                 + "\nO tempo de jogo deve ser de quatro períodos de 10 minutos cada, com 15 minutos de descanso entre o segundo e terceiro período.\n";
     }
-    
+
     @Override
     public void gerarSimulacao() {
         Lance l1 = new Lance();
         Lance l2 = new Lance();
         Lance l3 = new Lance();
-        
+
         l1.setEsporte(this);
         l2.setEsporte(this);
         l3.setEsporte(this);
-        
+
         l1.setLance(
-            "Faltam 3 segundos para o fim do jogo..."
-            + "\nA única chance de vitória é o jogador arremessar de onde ele está"
-            + "\nEle arremessa a bola e o tempo acabar e..."
-            + "\nCESTA!!! O TIME É CAMPEÃO!!!\n"
+                "Faltam 3 segundos para o fim do jogo..."
+                + "\nA única chance de vitória é o jogador arremessar de onde ele está"
+                + "\nEle arremessa a bola e o tempo acabar e..."
+                + "\nCESTA!!! O TIME É CAMPEÃO!!!\n"
         );
-        
+
         l2.setLance(
-            "O jogador avança em velocidade em direção à cesta"
-                    + "\nDeixou o primeiro pra trás!!"
-                    + "\nPassou pelo segundo!"
-                    + "\nELE ENTERRA A CESTA!! QUE JOGADOR É ESSE?"   
+                "O jogador avança em velocidade em direção à cesta"
+                + "\nDeixou o primeiro pra trás!!"
+                + "\nPassou pelo segundo!"
+                + "\nELE ENTERRA A CESTA!! QUE JOGADOR É ESSE?"
         );
-        
+
         l3.setLance(
-             "HOJE ELE TÁ IMPOSSÍVEL!!!"
-                     + "\nSÃO 36 PONTOS SÓ COM CESTA DE 3"
-                     + "\nALGUÉM PARA ESSE HOMEM!"
+                "HOJE ELE TÁ IMPOSSÍVEL!!!"
+                + "\nSÃO 36 PONTOS SÓ COM CESTA DE 3"
+                + "\nALGUÉM PARA ESSE HOMEM!"
         );
-        
+
         LanceDAO.salvarLance(l1);
         LanceDAO.salvarLance(l2);
         LanceDAO.salvarLance(l3);
-        
+
+        LanceDAO.associarEsporte(l1, this);
+        LanceDAO.associarEsporte(l2, this);
+        LanceDAO.associarEsporte(l3, this);
     }
-    
+
     public static String mostrarRegras() {
         Esporte e = new Basquete(10);
-        
+
         return e.regras();
     }
 
-    
     @Override
     public String toString() {
         return super.toString() + " Basquete";

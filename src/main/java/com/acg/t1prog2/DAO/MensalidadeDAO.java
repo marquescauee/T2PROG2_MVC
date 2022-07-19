@@ -41,15 +41,16 @@ public class MensalidadeDAO {
         }
     }
     
-    public static boolean salvarMensalidade(Mensalidade mens) {
+    public static boolean salvarMensalidade(Mensalidade mens, Esporte esporte) {
         createTable();
         Connection connection = Conexao.getConnection();
-        String sql = "INSERT INTO MENSALIDADE (valor) VALUES (?)";
+        String sql = "INSERT INTO MENSALIDADE (valor, esporte_id) VALUES (?, ?)";
         PreparedStatement pstmt;
         
         try {
             pstmt = connection.prepareStatement(sql);
             pstmt.setDouble(1, mens.getValor());
+            pstmt.setInt(2, esporte.getId());
             
             pstmt.execute();
             
@@ -61,6 +62,26 @@ public class MensalidadeDAO {
                 int id = resultado.getInt(1);
                 mens.setId(id);
             }
+            return true;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public static boolean associarMensalidadeAluno(Mensalidade mensalidade, Aluno aluno) {
+        createTable();
+        Connection connection = Conexao.getConnection();
+        String sql = "UPDATE MENSALIDADE SET aluno_id=? WHERE ID=?";
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, aluno.getId());
+            pstmt.setInt(2, mensalidade.getId());
+            pstmt.execute();
+            
+            System.out.println("Mensalidade atualizada com sucesso!");
             return true;
         } catch(SQLException e) {
             System.out.println(e.getMessage());
@@ -85,21 +106,14 @@ public class MensalidadeDAO {
                 
                 Mensalidade m = null;
                                 
-                switch (resultado.getInt("valor")) {
-                    case 100:
-                        m = new Mensal(valor);
-                        break;
-                    case 270:
-                        m = new Trimestral(valor);
-                        break;
-                    case 550:
-                        m = new Semestral(valor);
-                        break;
-                    case 900:
-                        m = new Anual(valor);
-                        break;
-                    default:
-                        break;
+                if(valor == 100) {
+                    m = new Mensal(valor);
+                } else if (valor == 270) {
+                    m = new Trimestral(valor);
+                } else if(valor == 550) {
+                    m = new Semestral(valor);
+                } else {
+                    m = new Anual(valor);
                 }
                 
                 m.setId(id);
@@ -110,6 +124,84 @@ public class MensalidadeDAO {
             return null;
         }
         return mensalidades;
+    }
+    
+    public static List<Mensalidade> recuperarMensalidadesAluno(Aluno a) {
+        createTable();
+        List<Mensalidade> mensalidades = new ArrayList<>();
+        Connection connection = Conexao.getConnection();
+        String sql = "SELECT * FROM MENSALIDADE WHERE aluno_id=?";
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, a.getId());
+            pstmt.execute();
+            ResultSet resultado = pstmt.executeQuery();
+
+            while (resultado.next()) {
+                int id = resultado.getInt("id");
+                double valorMens = resultado.getDouble("valor");
+                
+                Mensalidade mensalidade = null;
+                
+                if(valorMens == 100) {
+                    mensalidade = new Mensal(valorMens);
+                } else if (valorMens == 270) {
+                    mensalidade = new Trimestral(valorMens);
+                } else if(valorMens == 550) {
+                    mensalidade = new Semestral(valorMens);
+                } else {
+                    mensalidade = new Anual(valorMens);
+                }
+           
+                mensalidade.setId(id);        
+                mensalidades.add(mensalidade);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+        return mensalidades;
+    }
+    
+    public static Mensalidade recuperarMensalidadeEsporte(double valor, Esporte esporte) {
+        createTable();
+        Mensalidade mensalidade = null;
+        Connection connection = Conexao.getConnection();
+        String sql = "SELECT * FROM MENSALIDADE WHERE esporte_id=? AND valor=?";
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, esporte.getId());
+            pstmt.setDouble(2, valor);
+            pstmt.execute();
+            ResultSet resultado = pstmt.executeQuery();
+
+            while (resultado.next()) {
+                int id = resultado.getInt("id");
+                double valorMens = resultado.getDouble("valor");
+                
+                if(valorMens == 100) {
+                    mensalidade = new Mensal(valorMens);
+                } else if (valorMens == 270) {
+                    mensalidade = new Trimestral(valorMens);
+                } else if(valorMens == 550) {
+                    mensalidade = new Semestral(valorMens);
+                } else {
+                    mensalidade = new Anual(valorMens);
+                }
+           
+                mensalidade.setId(id);             
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+        return mensalidade;
     }
     
     public static boolean removerMensalidade(Mensalidade m) {

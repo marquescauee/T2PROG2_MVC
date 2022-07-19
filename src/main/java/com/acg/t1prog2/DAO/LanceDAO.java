@@ -135,4 +135,22 @@ public class LanceDAO {
         return lances;
     }
    
+    public static boolean associarEsporte(Lance lance, Esporte esporte) {
+        createTable();
+        Connection connection = Conexao.getConnection();
+        String sql = "UPDATE LANCE SET esporte_id=? WHERE ID=?";
+        PreparedStatement pstmt;
+        
+        try {
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, esporte.getId());
+            pstmt.setInt(2, lance.getId());
+            pstmt.execute();
+            
+            return true;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }

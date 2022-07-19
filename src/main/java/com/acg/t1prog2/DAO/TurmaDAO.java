@@ -102,7 +102,6 @@ public class TurmaDAO {
                 
                 Professor p = null;
                 Esporte esporte = null;
-                List<Mensalidade> mensalidades = new ArrayList<>();
                 
                 for(Professor prof : ProfessorDAO.recuperarTodosProfessores()) {
                     if(prof.getId() == professor_id) {
@@ -112,23 +111,12 @@ public class TurmaDAO {
                 
                 for(Esporte esp : EsporteDAO.recuperarTodosEsportes()) {
                     if(esp.getId() == esporte_id) {
-                        esporte = esp;
-                        
-                        for(Mensalidade m : esp.getListaMensalidades()) {
-                            mensalidades.add(m);
-                        }
+                        esporte = esp;                      
                     }
                 }
                 
-                Turma t = new Turma();
-                t.setId(id);
-                t.setEsporte(esporte);
-                t.setProfessor(p);
-                
-                for(Mensalidade m : mensalidades) {
-                    t.getEsporte().addMensalidade(m);
-                }
-                
+                Turma t = new Turma(id, esporte, p);
+
                 turmas.add(t);
             }
         } catch (SQLException e) {

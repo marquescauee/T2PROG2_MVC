@@ -15,9 +15,17 @@ public class Equipamento implements Comparable<Equipamento> {
     private String nome;
     private String marca;
     private String codigo;
-
+    private Ginasio ginasio;
+    
     public Equipamento() {
         
+    }
+    
+    public Equipamento(String nome, String marca, String codigo, Ginasio ginasio) {
+        this.nome = nome;
+        this.marca = marca;
+        this.codigo = codigo;
+        this.ginasio = ginasio;
     }
     
     public Equipamento(String nome, String marca, String codigo) {
@@ -28,6 +36,10 @@ public class Equipamento implements Comparable<Equipamento> {
 
     public int getId() {
         return id;
+    }
+
+    public Ginasio getGinasio() {
+        return ginasio;
     }
 
     public void setId(int id) {

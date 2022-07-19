@@ -10,6 +10,8 @@ import com.acg.t1prog2.Models.Esportes.Futebol;
 import com.acg.t1prog2.Models.Esportes.Natacao;
 import com.acg.t1prog2.Models.Esportes.Volei;
 import com.acg.t1prog2.Models.Ginasio;
+import com.acg.t1prog2.Models.Lance;
+import com.acg.t1prog2.Models.Mensalidade;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +26,9 @@ public class EsporteDAO {
         Connection connection = Conexao.getConnection();
         String criarTabela = "CREATE TABLE IF NOT EXISTS ESPORTE"
                 + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "qtdParticipantes INTEGER NOT NULL)";
+                + "qtdParticipantes INTEGER NOT NULL,"
+                + "ginasio_id INTEGER,"
+                + "FOREIGN KEY (ginasio_id) REFERENCES GINASIO (id))";
         
         Statement stmt = null;
         
@@ -36,15 +40,16 @@ public class EsporteDAO {
         }
     }
     
-    public static boolean salvarEsporte(Esporte esp) {
+    public static boolean salvarEsporte(Esporte esp, Ginasio ginasio) {
         createTable();
         Connection connection = Conexao.getConnection();
-        String sql = "INSERT INTO ESPORTE (qtdParticipantes) VALUES (?)";
+        String sql = "INSERT INTO ESPORTE (qtdParticipantes, ginasio_id) VALUES (?, ?)";
         PreparedStatement pstmt;
         
         try {
             pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, esp.getQtdJogadores());
+            pstmt.setInt(2, ginasio.getId());
             
             pstmt.execute();
             
@@ -124,4 +129,6 @@ public class EsporteDAO {
             return false;
         }
     }
+    
+    
 }

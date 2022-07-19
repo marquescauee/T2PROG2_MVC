@@ -32,7 +32,7 @@ public class BuscarEquipamentoController {
                 String codigo = bev.getCodigo();
                 Equipamento equipBuscado = EquipamentoDAO.recuperarEquipamento(codigo);
                 
-                if (equipBuscado != null) {
+                if (equipBuscado != null && equipBuscado.getGinasio().getId() == tempGin.getId()) {
                     bev.mostrarResultadoBusca(equipBuscado.toString() + "\n");
                 } else {
                     bev.mostrarResultadoBusca("O ginásio não possui o equipamento com o código informado \n");

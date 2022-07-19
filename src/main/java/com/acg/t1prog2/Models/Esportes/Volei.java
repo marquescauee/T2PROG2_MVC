@@ -49,6 +49,10 @@ public class Volei extends Esporte {
         lanceDAO.salvarLance(l2);
         lanceDAO.salvarLance(l3);
         
+        LanceDAO.associarEsporte(l1, this);
+        LanceDAO.associarEsporte(l2, this);
+        LanceDAO.associarEsporte(l3, this);
+        
     }
 
     @Override

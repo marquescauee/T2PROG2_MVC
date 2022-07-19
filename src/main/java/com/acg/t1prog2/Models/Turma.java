@@ -19,6 +19,13 @@ public class Turma {
         this.listaAlunos = new ArrayList<>();
     }
 
+    public Turma(int id, Esporte esporte, Professor professor) {
+        this.listaAlunos = new ArrayList<>();
+        this.id = id;
+        this.esporte = esporte;
+        this.professor = professor;
+    }
+    
     public Esporte getEsporte() {
         return esporte;
     }
