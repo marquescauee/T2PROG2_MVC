@@ -4,15 +4,10 @@
  */
 package com.acg.t1prog2.Views.Ginasio;
 
-import com.acg.t1prog2.DAO.EsporteDAO;
-import com.acg.t1prog2.DAO.GinasioDAO;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 public class CadastrarGinasioView extends javax.swing.JFrame {
-
-    private GinasioDAO ginasioDAO = new GinasioDAO();
-    private EsporteDAO esporteDAO = new EsporteDAO();
 
     public CadastrarGinasioView() {
         initComponents();
