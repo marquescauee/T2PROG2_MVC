@@ -35,10 +35,7 @@ public class ListarEquipamentoController {
         etm.fireTableDataChanged();
     }
     
-    private void inicializarTelaListarDados() {
-        List<Equipamento> equipamentos = EquipamentoDAO.recuperarTodosEquipamentos();
-       
-        
+    private void inicializarTelaListarDados() {         
         etm = new EquipamentoTableModel(EquipamentoDAO.recuperarTodosEquipamentos());
     }
 }
