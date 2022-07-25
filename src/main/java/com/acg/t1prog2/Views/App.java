@@ -39,6 +39,7 @@ import com.acg.t1prog2.DAO.ProfessorDAO;
 import com.acg.t1prog2.DAO.ReservaDAO;
 import com.acg.t1prog2.DAO.TurmaDAO;
 import com.acg.t1prog2.Models.Aluno;
+import com.acg.t1prog2.Models.Equipamento;
 import com.acg.t1prog2.Models.Pessoa;
 import com.acg.t1prog2.Models.Professor;
 import com.acg.t1prog2.Models.Tabela.EquipamentoTableModel;
@@ -71,6 +72,7 @@ import com.acg.t1prog2.Views.Turma.ListarTurmaView;
 import com.acg.t1prog2.Views.Turma.RemoverTurmaView;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class App extends javax.swing.JFrame {    
@@ -483,7 +485,17 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_mnCadastrarEquipamentosActionPerformed
 
     private void mnListarEquipamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnListarEquipamentosActionPerformed
-        ListarEquipamentoController lec = new ListarEquipamentoController(new ListarEquipamentoView(), new EquipamentoTableModel(EquipamentoDAO.recuperarTodosEquipamentos()));
+        List<Equipamento> equips = EquipamentoDAO.recuperarTodosEquipamentos();
+        
+        Collections.sort(equips);
+        
+        List<Equipamento> listaOrdenada = new ArrayList<>();
+        
+        for(Equipamento equip : equips) {
+            listaOrdenada.add(equip);
+        }
+        
+        ListarEquipamentoController lec = new ListarEquipamentoController(new ListarEquipamentoView(), new EquipamentoTableModel(listaOrdenada));
         lec.exibir();
     }//GEN-LAST:event_mnListarEquipamentosActionPerformed
 

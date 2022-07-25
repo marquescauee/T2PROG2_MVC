@@ -5,6 +5,7 @@
 package com.acg.t1prog2.Models.Tabela;
 
 import com.acg.t1prog2.Exceptions.CampoVazioException;
+import com.acg.t1prog2.Exceptions.IdentificadorUnicoException;
 import com.acg.t1prog2.Models.Equipamento;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -76,7 +77,7 @@ public class EquipamentoTableModel extends AbstractTableModel {
                 equip.setCodigo((String) aValue);
                 break;        
             }  
-        } catch(CampoVazioException e) {
+        } catch(CampoVazioException | IdentificadorUnicoException e) {
             System.out.println(e.getMessage()); 
         }
         fireTableDataChanged();

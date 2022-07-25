@@ -6,6 +6,7 @@ package com.acg.t1prog2.Controllers.Equipamento;
 
 import com.acg.t1prog2.DAO.EquipamentoDAO;
 import com.acg.t1prog2.Exceptions.CampoVazioException;
+import com.acg.t1prog2.Exceptions.IdentificadorUnicoException;
 import com.acg.t1prog2.Models.Equipamento;
 import com.acg.t1prog2.Views.Equipamento.CadastrarEquipamentoView;
 import java.awt.event.ActionEvent;
@@ -39,7 +40,7 @@ public class CadastrarEquipamentoController {
                     addEquipamento(equipamento);
                     cec.exibirMensagem("Equipamento cadastrado com sucesso!");
                     cec.limparTela();
-                } catch (CampoVazioException ex) {
+                } catch (CampoVazioException | IdentificadorUnicoException ex) {
                     cec.exibirMensagem(ex.getMessage());
                 }
             }

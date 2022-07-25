@@ -5,8 +5,12 @@
 package com.acg.t1prog2.Controllers.Equipamento;
 
 import com.acg.t1prog2.DAO.EquipamentoDAO;
+import com.acg.t1prog2.Models.Equipamento;
 import com.acg.t1prog2.Models.Tabela.EquipamentoTableModel;
 import com.acg.t1prog2.Views.Equipamento.ListarEquipamentoView;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ListarEquipamentoController {
     private ListarEquipamentoView lev;
@@ -32,6 +36,9 @@ public class ListarEquipamentoController {
     }
     
     private void inicializarTelaListarDados() {
+        List<Equipamento> equipamentos = EquipamentoDAO.recuperarTodosEquipamentos();
+       
+        
         etm = new EquipamentoTableModel(EquipamentoDAO.recuperarTodosEquipamentos());
     }
 }

@@ -6,6 +6,8 @@ package com.acg.t1prog2.Models;
 
 import com.acg.t1prog2.DAO.EquipamentoDAO;
 import com.acg.t1prog2.Exceptions.CampoVazioException;
+import com.acg.t1prog2.Exceptions.IdentificadorUnicoException;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -74,10 +76,17 @@ public class Equipamento implements Comparable<Equipamento> {
         return codigo;
     }
 
-    public void setCodigo(String codigo) throws CampoVazioException {
-        EquipamentoDAO equipDAO = new EquipamentoDAO();    
+    public void setCodigo(String codigo) throws CampoVazioException, IdentificadorUnicoException {   
         
-        if(codigo.isBlank()) {
+        List<Equipamento> equipamentos = EquipamentoDAO.recuperarTodosEquipamentos();
+        
+        for(Equipamento e : equipamentos) {
+            if(Long.parseLong(e.getCodigo()) == Long.parseLong(codigo)) {
+                throw new IdentificadorUnicoException();
+            }
+        }
+        
+        if(codigo.isBlank() || Long.parseLong(codigo) < 0) {
             throw new CampoVazioException();
         }
         
