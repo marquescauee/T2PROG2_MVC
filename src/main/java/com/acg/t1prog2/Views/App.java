@@ -73,6 +73,7 @@ import com.acg.t1prog2.Views.Turma.RemoverTurmaView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class App extends javax.swing.JFrame {    
@@ -544,6 +545,13 @@ public class App extends javax.swing.JFrame {
         for(Professor p : ProfessorDAO.recuperarTodosProfessores()) {
             pessoas.add(p);
         }
+        
+        pessoas.sort(new Comparator<Pessoa>() {
+            @Override
+            public int compare(Pessoa o1, Pessoa o2) {
+                return o1.getNome().compareTo(o2.getNome());
+            }
+        });
         
         ListarPessoaController lpc = new ListarPessoaController(new ListarPessoaView(), new PessoaTableModel(pessoas));
         lpc.exibirTela();
