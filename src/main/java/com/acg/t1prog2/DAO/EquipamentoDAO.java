@@ -51,7 +51,7 @@ public class EquipamentoDAO {
             
             pstmt.execute();
             
-            System.out.println("Esporte gravado com sucesso!");
+            System.out.println("Equipamento gravado com sucesso!");
             
             final ResultSet resultado = pstmt.getGeneratedKeys();
             
@@ -80,7 +80,7 @@ public class EquipamentoDAO {
             pstmt.setInt(4, equip.getId());
             pstmt.execute();
             
-            System.out.println("Esporte atualizado com sucesso!");
+            System.out.println("Equipamento atualizado com sucesso!");
             return true;
         } catch(SQLException e) {
             System.out.println(e.getMessage());
@@ -100,7 +100,7 @@ public class EquipamentoDAO {
             pstmt.setInt(2, equipamento.getId());
             pstmt.execute();
             
-            System.out.println("Esporte atualizado com sucesso!");
+            System.out.println("Equipamento atualizado com sucesso!");
             return true;
         } catch(SQLException e) {
             System.out.println(e.getMessage());
@@ -186,7 +186,7 @@ public class EquipamentoDAO {
             pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, equip.getId());
             pstmt.execute();
-            System.out.println("Esporte removido com sucesso!");
+            System.out.println("Equipamento removido com sucesso!");
             return true;
         } catch(SQLException e) {
             System.out.println(e.getMessage());
